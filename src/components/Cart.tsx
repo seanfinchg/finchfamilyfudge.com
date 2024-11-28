@@ -1,20 +1,28 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { Link, useNavigate } from 'react-router-dom';
+import PageTitle from '../components/PageTitle'; // Import PageTitle
 
 const Cart: React.FC = () => {
-  const { cartItems, removeFromCart, totalPrice } = useCart();
+  const { cartItems, removeFromCart, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
     navigate('/order-summary');
   };
 
+  const handleClearCart = () => {
+    clearCart();
+  };
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 animate-fadeIn">
+      <PageTitle title="Finch Family Fudge | Cart" /> {/* Set Page Title */}
       <h2 className="text-2xl font-bold mb-4 text-lightText">Your Cart</h2>
       {cartItems.length === 0 ? (
-        <p className="text-lightText">Your cart is empty. <Link to="/products" className="text-finchGold">Shop now</Link>.</p>
+        <p className="text-lightText">
+          Your cart is empty. <Link to="/products" className="text-finchGold">Shop now</Link>.
+        </p>
       ) : (
         <div>
           <ul>
@@ -37,12 +45,20 @@ const Cart: React.FC = () => {
           </ul>
           <div className="mt-4 flex justify-between items-center">
             <span className="text-xl font-semibold text-lightText">Total: ${totalPrice.toFixed(2)}</span>
-            <button
-              onClick={handleCheckout}
-              className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500"
-            >
-              Checkout
-            </button>
+            <div className="flex space-x-4">
+              <button
+                onClick={handleCheckout}
+                className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500"
+              >
+                Checkout
+              </button>
+              <button
+                onClick={handleClearCart}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Clear Cart
+              </button>
+            </div>
           </div>
         </div>
       )}

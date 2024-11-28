@@ -61,13 +61,13 @@ const OrderSummary: React.FC = () => {
       <div className="mt-6 flex flex-col space-y-4">
         <button
           onClick={handleVenmo}
-          className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500"
+          className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500 transition-transform duration-200"
         >
           Pay with Venmo
         </button>
         <button
           onClick={handlePayPal}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-transform duration-200"
         >
           Pay with PayPal
         </button>

@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-darkBg p-4 flex justify-between items-center w-full">
+    <nav className="bg-darkBg p-4 flex justify-between items-center w-full relative">
       <div className="text-2xl font-bold text-lightText">
         <Link to="/">Finch Family Fudge</Link>
       </div>
