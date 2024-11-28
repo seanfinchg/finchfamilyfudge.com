@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import Cart from './components/Cart';
 import OrderSummary from './pages/OrderSummary';
+import About from './pages/About'; // Import About page
 import { CartProvider } from './context/CartContext';
 import { ToastProvider } from './context/ToastContext';
 
@@ -14,12 +15,13 @@ const App: React.FC = () => {
     <ToastProvider>
       <CartProvider>
         <Router>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen w-full">
             <Navbar />
             <main className="flex-grow bg-darkBg w-full">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/about" element={<About />} /> {/* Added About route */}
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/order-summary" element={<OrderSummary />} />
               </Routes>

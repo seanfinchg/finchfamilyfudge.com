@@ -1,20 +1,29 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import PageTitle from '../components/PageTitle'; // Import PageTitle
 
 const OrderSummary: React.FC = () => {
   const { cartItems, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
+  const generatePaymentNote = () => {
+    return cartItems
+      .map(item => `${item.name} (${item.size.label})`)
+      .join(', ');
+  };
+
   const handleVenmo = () => {
-    const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(2)}&note=Purchase+of+Fudge`;
+    const note = encodeURIComponent(`Purchase of Fudge: ${generatePaymentNote()}`);
+    const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(2)}&note=${note}`;
     window.open(venmoLink, '_blank');
     clearCart();
     navigate('/');
   };
 
   const handlePayPal = () => {
-    const paypalLink = `https://paypal.me/StraightUpSean/${totalPrice.toFixed(2)}`;
+    const note = encodeURIComponent(`Purchase of Fudge: ${generatePaymentNote()}`);
+    const paypalLink = `https://paypal.me/StraightUpSean/${totalPrice.toFixed(2)}?note=${note}`;
     window.open(paypalLink, '_blank');
     clearCart();
     navigate('/');
@@ -22,15 +31,19 @@ const OrderSummary: React.FC = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 animate-fadeIn">
+        <PageTitle title="Finch Family Fudge | Order Summary" /> {/* Set Page Title */}
         <h2 className="text-2xl font-bold mb-4 text-lightText">Order Summary</h2>
-        <p className="text-lightText">Your cart is empty. <button onClick={() => navigate('/products')} className="text-finchGold">Shop now</button>.</p>
+        <p className="text-lightText">
+          Your cart is empty. <button onClick={() => navigate('/products')} className="text-finchGold">Shop now</button>.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 animate-fadeIn">
+      <PageTitle title="Finch Family Fudge | Order Summary" /> {/* Set Page Title */}
       <h2 className="text-2xl font-bold mb-4 text-lightText">Order Summary</h2>
       <ul>
         {cartItems.map((item, index) => (
