@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Product, CartItem } from '../types';
+import { useToast } from './ToastContext';
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -13,9 +14,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const { showToast } = useToast();
 
   const addToCart = (product: CartItem) => {
     setCartItems([...cartItems, product]);
+    showToast(`${product.name} (${product.size.label}) added to cart!`);
   };
 
   const removeFromCart = (index: number) => {

@@ -16,9 +16,9 @@ export const products: Product[] = [
     name: 'Rum Cherry Chocolate Fudge',
     image: '/images/rum-cherry-chocolate-fudge.jpg',
     sizes: [
-      { label: 'Small', price: 6 },
-      { label: 'Medium', price: 12 },
-      { label: 'Large', price: 18 },
+      { label: 'Small', price: 5 },
+      { label: 'Medium', price: 10 },
+      { label: 'Large', price: 15 },
     ],
   },
   {
@@ -46,8 +46,8 @@ export const products: Product[] = [
     name: 'Almond Roca',
     image: '/images/almond-roca.jpg',
     sizes: [
-      { label: 'Regular', price: 7 },
-      { label: 'Large', price: 12 },
+      { label: 'Regular', price: 5 },
+      { label: 'Large', price: 15 },
     ],
   },
 ];
