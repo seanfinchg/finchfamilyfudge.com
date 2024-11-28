@@ -4,7 +4,7 @@ import PageTitle from '../components/PageTitle'; // Import PageTitle
 
 const Home: React.FC = () => {
   return (
-    <div className="flex items-center justify-center flex-grow bg-darkBg animate-fadeIn">
+    <div className="min-h-screen flex items-center justify-center bg-darkBg animate-fadeIn">
       <PageTitle title="Finch Family Fudge | Home" /> {/* Set Page Title */}
       <div className="text-center px-4 w-full max-w-2xl">
         <h1 className="text-4xl font-bold mb-4 text-lightText">Welcome to Finch Family Fudge</h1>
