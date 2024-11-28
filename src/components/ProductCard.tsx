@@ -15,11 +15,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="border rounded-lg p-4 shadow-lg flex flex-col">
-      <img src={product.image} alt={product.name} className="w-full h-48 object-cover mb-4" />
-      <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+    <div className="border rounded-lg p-4 shadow-lg flex flex-col bg-darkBg">
+      <img src={product.image} alt={product.name} className="w-full h-48 object-cover mb-4 rounded" />
+      <h3 className="text-xl font-semibold mb-2 text-lightText">{product.name}</h3>
       <div className="mb-4">
-        <label htmlFor={`size-${product.id}`} className="block mb-1">Select Size:</label>
+        <label htmlFor={`size-${product.id}`} className="block mb-1 text-lightText">Select Size:</label>
         <select
           id={`size-${product.id}`}
           value={selectedSize.label}
@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             const size = product.sizes.find(s => s.label === e.target.value);
             if (size) setSelectedSize(size);
           }}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded bg-gray-700 text-lightText"
         >
           {product.sizes.map(size => (
             <option key={size.label} value={size.label}>
@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
       <button
         onClick={handleAddToCart}
-        className="mt-auto bg-finchGold text-white px-4 py-2 rounded hover:bg-yellow-500"
+        className="mt-auto bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500"
       >
         Add to Cart
       </button>

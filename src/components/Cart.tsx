@@ -12,18 +12,18 @@ const Cart: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+      <h2 className="text-2xl font-bold mb-4 text-lightText">Your Cart</h2>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty. <Link to="/products" className="text-finchGold">Shop now</Link>.</p>
+        <p className="text-lightText">Your cart is empty. <Link to="/products" className="text-finchGold">Shop now</Link>.</p>
       ) : (
         <div>
           <ul>
             {cartItems.map((item, index) => (
-              <li key={index} className="flex justify-between items-center mb-2">
-                <div>
+              <li key={index} className="flex justify-between items-center mb-2 bg-gray-800 p-2 rounded">
+                <div className="text-lightText">
                   <span className="font-semibold">{item.name}</span> - {item.size.label}
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-lightText">
                   <span className="mr-4">${item.size.price}</span>
                   <button
                     onClick={() => removeFromCart(index)}
@@ -36,10 +36,10 @@ const Cart: React.FC = () => {
             ))}
           </ul>
           <div className="mt-4 flex justify-between items-center">
-            <span className="text-xl font-semibold">Total: ${totalPrice.toFixed(2)}</span>
+            <span className="text-xl font-semibold text-lightText">Total: ${totalPrice.toFixed(2)}</span>
             <button
               onClick={handleCheckout}
-              className="bg-finchGold text-white px-4 py-2 rounded hover:bg-yellow-500"
+              className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500"
             >
               Checkout
             </button>

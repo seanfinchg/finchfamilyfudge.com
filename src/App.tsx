@@ -16,7 +16,7 @@ const App: React.FC = () => {
         <Router>
           <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-grow">
+            <main className="flex-grow bg-darkBg w-full">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />

@@ -23,32 +23,32 @@ const OrderSummary: React.FC = () => {
   if (cartItems.length === 0) {
     return (
       <div className="container mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-        <p>Your cart is empty. <button onClick={() => navigate('/products')} className="text-finchGold">Shop now</button>.</p>
+        <h2 className="text-2xl font-bold mb-4 text-lightText">Order Summary</h2>
+        <p className="text-lightText">Your cart is empty. <button onClick={() => navigate('/products')} className="text-finchGold">Shop now</button>.</p>
       </div>
     );
   }
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
+      <h2 className="text-2xl font-bold mb-4 text-lightText">Order Summary</h2>
       <ul>
         {cartItems.map((item, index) => (
-          <li key={index} className="flex justify-between items-center mb-2">
-            <div>
+          <li key={index} className="flex justify-between items-center mb-2 bg-gray-800 p-2 rounded">
+            <div className="text-lightText">
               <span className="font-semibold">{item.name}</span> - {item.size.label}
             </div>
-            <div>${item.size.price}</div>
+            <div className="text-lightText">${item.size.price}</div>
           </li>
         ))}
       </ul>
       <div className="mt-4 flex justify-between items-center">
-        <span className="text-xl font-semibold">Total: ${totalPrice.toFixed(2)}</span>
+        <span className="text-xl font-semibold text-lightText">Total: ${totalPrice.toFixed(2)}</span>
       </div>
       <div className="mt-6 flex flex-col space-y-4">
         <button
           onClick={handleVenmo}
-          className="bg-finchGold text-white px-4 py-2 rounded hover:bg-yellow-500"
+          className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500"
         >
           Pay with Venmo
         </button>
