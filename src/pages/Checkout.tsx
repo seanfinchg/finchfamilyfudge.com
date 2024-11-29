@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { logoVenmo } from "ionicons/icons"; // Import Venmo icon from IonIcons
 import { IonIcon } from "@ionic/react";
+import { logoVenmo } from "ionicons/icons";
 
 const Checkout: React.FC = () => {
   useEffect(() => {
@@ -12,6 +12,15 @@ const Checkout: React.FC = () => {
 
   const { cartItems, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Function to detect if the user is on a mobile device
+  useEffect(() => {
+    const userAgent = navigator.userAgent || navigator.vendor;
+    const mobile = /android|iphone|ipad|iPod|windows phone/i.test(userAgent);
+    setIsMobile(mobile);
+  }, []);
 
   const generatePaymentNote = () => {
     return cartItems
@@ -19,16 +28,31 @@ const Checkout: React.FC = () => {
       .join(", ");
   };
 
+  const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
+    2
+  )}&note=${encodeURIComponent(`Order: ${generatePaymentNote()}`)}`;
+
   const handleVenmo = () => {
-    const note = encodeURIComponent(
-      `Purchase of Fudge: ${generatePaymentNote()}`
-    );
-    const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
-      2
-    )}&note=${note}`;
+    if (isMobile) {
+      setShowConfirmation(true);
+    } else {
+      proceedToVenmo();
+    }
+  };
+
+  const proceedToVenmo = () => {
     window.open(venmoLink, "_blank");
     clearCart();
     navigate("/");
+  };
+
+  const handleConfirm = () => {
+    setShowConfirmation(false);
+    proceedToVenmo();
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false);
   };
 
   const handleBackToCart = () => {
@@ -81,11 +105,16 @@ const Checkout: React.FC = () => {
         <Button
           variant="venmo"
           onClick={handleVenmo}
-          icon={<IonIcon icon={logoVenmo} />}
+          className="w-full flex items-center justify-center"
         >
+          <IonIcon icon={logoVenmo} className="mr-2" />
           Pay with Venmo
         </Button>
-        <Button variant="secondary" onClick={handleBackToCart}>
+        <Button
+          variant="secondary"
+          onClick={handleBackToCart}
+          className="w-full"
+        >
           Back to Cart
         </Button>
       </div>
@@ -96,6 +125,38 @@ const Checkout: React.FC = () => {
       <p className="mt-2 text-lightText text-center">
         Cash is also accepted if purchased in person.
       </p>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg p-6 w-11/12 max-w-md">
+            <h3 className="text-xl font-bold mb-4">Confirm Venmo Payment</h3>
+            <p className="mb-4">
+              You are about to pay via Venmo on a mobile device. Please ensure
+              you manually add your order details in the Venmo note to ensure
+              your order is processed correctly.
+            </p>
+            <p className="mb-4 text-red-500">
+              *If you do not add the order note, your order will not be
+              completed.
+            </p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={handleCancel}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirm}
+                className="px-4 py-2 bg-finchGold text-darkBg rounded hover:bg-yellow-500"
+              >
+                Proceed to Venmo
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
