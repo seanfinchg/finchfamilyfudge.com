@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: "./", // Set base to relative path
   build: {
-    outDir: "dist", // Ensure the build output directory is 'dist'
+    outDir: "dist", // Ensure output directory is 'dist'
   },
 });
