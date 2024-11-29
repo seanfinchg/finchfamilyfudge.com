@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
-import PageTitle from "../components/PageTitle"; // Import PageTitle
 
 const Cart: React.FC = () => {
+  useEffect(() => {
+    document.title = "Finch Family Fudge | Cart";
+  }, []);
+
   const { cartItems, removeFromCart, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
@@ -17,7 +20,6 @@ const Cart: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 animate-fadeIn">
-      <PageTitle title="Finch Family Fudge | Cart" /> {/* Set Page Title */}
       <h2 className="text-2xl font-bold mb-4 text-lightText">Your Cart</h2>
       {cartItems.length === 0 ? (
         <p className="text-lightText">

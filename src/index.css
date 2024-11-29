@@ -25,7 +25,7 @@
 /* Link Styles */
 a {
   font-weight: 500;
-  color: #fbbf24; /* Finch Gold */
+  color: #d4af37; /* Finch Gold */
   text-decoration: inherit;
 }
 a:hover {
@@ -56,7 +56,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #fbbf24; /* Finch Gold */
+  background-color: #d4af37; /* Finch Gold */
   color: #1a1a1a; /* Dark Text on Button */
   cursor: pointer;
   transition: background-color 0.25s, border-color 0.25s, transform 0.2s,
@@ -64,13 +64,13 @@ button {
 }
 button:hover {
   background-color: #f59e0b; /* Darker Gold on Hover */
-  border-color: #fbbf24; /* Gold Border on Hover */
+  border-color: #d4af37; /* Gold Border on Hover */
   transform: scale(1.05);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto #fbbf24; /* Gold Outline on Focus */
+  outline: 4px auto #d4af37; /* Gold Outline on Focus */
 }
 
 /* Responsive Padding for Desktop and Mobile */

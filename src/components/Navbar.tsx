@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa"; // Added icons for menu
+import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   const { cartItems } = useCart();
