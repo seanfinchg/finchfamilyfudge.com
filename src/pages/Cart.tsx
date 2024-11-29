@@ -1,3 +1,4 @@
+// src/pages/Cart.tsx
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -35,26 +36,26 @@ const Cart: React.FC = () => {
         <div>
           <ul>
             {cartItems.map((item, index) => (
-              <li
-                key={`${item.id}-${item.size.label}`}
-                className="flex justify-between items-center mb-4 bg-gray-800 p-4 rounded"
-              >
-                <div className="flex items-center">
+              <li key={`${item.id}-${item.size.label}`} className="cart-item">
+                <div className="flex items-center mb-2 sm:mb-0">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-16 h-16 object-cover mr-4 rounded"
+                    className="cart-item-image"
                   />
-                  <div>
+                  <div className="cart-item-details">
                     <h3 className="text-xl font-semibold text-lightText">
                       {item.name}
                     </h3>
                     <p className="text-lightText">
                       {item.size.label} - ${item.size.price}
                     </p>
+                    <p className="text-lightText">
+                      {item.inStock ? "In Stock" : "Out of Stock"}
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="cart-item-actions">
                   <input
                     type="number"
                     min="1"
@@ -63,6 +64,7 @@ const Cart: React.FC = () => {
                       updateQuantity(index, parseInt(e.target.value) || 1)
                     }
                     className="w-16 p-2 border rounded bg-gray-700 text-lightText"
+                    disabled={!item.inStock}
                   />
                   <Button
                     variant="secondary"
@@ -74,11 +76,11 @@ const Cart: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex justify-between items-center">
+          <div className="mt-6 flex flex-col sm:flex-row justify-between items-center">
             <span className="text-xl font-semibold text-lightText">
               Total: ${totalPrice.toFixed(2)}
             </span>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mt-4 sm:mt-0">
               <Button variant="primary" onClick={handleCheckout}>
                 Checkout
               </Button>

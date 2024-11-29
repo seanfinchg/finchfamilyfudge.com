@@ -10,6 +10,8 @@ export const products: Product[] = [
       { label: "Medium", price: 10 },
       { label: "Large", price: 15 },
     ],
+    description: "",
+    inStock: true
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ export const products: Product[] = [
       { label: "Medium", price: 10 },
       { label: "Large", price: 15 },
     ],
+    description: "",
+    inStock: true
   },
   {
     id: 3,
@@ -30,6 +34,8 @@ export const products: Product[] = [
       { label: "Medium", price: 10 },
       { label: "Large", price: 15 },
     ],
+    description: "",
+    inStock: true
   },
   {
     id: 4,
@@ -40,6 +46,8 @@ export const products: Product[] = [
       { label: "Medium", price: 10 },
       { label: "Large", price: 15 },
     ],
+    description: "",
+    inStock: true
   },
   {
     id: 5,
@@ -49,5 +57,7 @@ export const products: Product[] = [
       { label: "Regular", price: 5 },
       { label: "Large", price: 15 },
     ],
+    description: "",
+    inStock: true
   },
 ];

@@ -1,3 +1,4 @@
+// src/pages/Checkout.tsx
 import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -84,11 +85,18 @@ const Checkout: React.FC = () => {
         {cartItems.map((item, index) => (
           <li
             key={`${item.id}-${item.size.label}`}
-            className="flex justify-between items-center mb-2 bg-gray-800 p-2 rounded"
+            className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 bg-gray-800 p-4 rounded"
           >
-            <div className="text-lightText">
-              <span className="font-semibold">{item.name}</span> -{" "}
-              {item.size.label} x {item.quantity}
+            <div className="flex items-center mb-2 sm:mb-0">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-16 h-16 object-cover mr-4 rounded"
+              />
+              <div className="text-lightText">
+                <span className="font-semibold">{item.name}</span> -{" "}
+                {item.size.label} x {item.quantity}
+              </div>
             </div>
             <div className="text-lightText">
               ${(item.size.price * item.quantity).toFixed(2)}
@@ -128,8 +136,8 @@ const Checkout: React.FC = () => {
 
       {/* Confirmation Modal */}
       {showConfirmation && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg p-6 w-11/12 max-w-md">
+        <div className="modal-overlay">
+          <div className="modal-content">
             <h3 className="text-xl font-bold mb-4">Confirm Venmo Payment</h3>
             <p className="mb-4">
               You are about to pay via Venmo on a mobile device. Please ensure
@@ -141,16 +149,10 @@ const Checkout: React.FC = () => {
               completed.
             </p>
             <div className="flex justify-end space-x-4">
-              <button
-                onClick={handleCancel}
-                className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-              >
+              <button onClick={handleCancel} className="btn-secondary">
                 Cancel
               </button>
-              <button
-                onClick={handleConfirm}
-                className="px-4 py-2 bg-finchGold text-darkBg rounded hover:bg-yellow-500"
-              >
+              <button onClick={handleConfirm} className="btn-primary">
                 Proceed to Venmo
               </button>
             </div>

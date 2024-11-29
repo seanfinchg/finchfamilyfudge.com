@@ -1,3 +1,4 @@
+// src/pages/Home.tsx
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
@@ -8,18 +9,17 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex-grow flex items-center justify-center bg-darkBg animate-fadeIn">
-      <div className="text-center px-4 w-full max-w-2xl">
-        <h1 className="text-4xl font-bold mb-4 text-lightText">
-          Welcome to Finch Family Fudge
-        </h1>
-        <p className="mb-6 text-lightText">
-          Delicious, handcrafted fudge in a variety of flavors and sizes.
-        </p>
-        <Link to="/products">
-          <Button variant="primary">Shop Now</Button>
-        </Link>
-      </div>
+    <div className="container mx-auto p-4 animate-fadeIn flex flex-col items-center justify-center text-center">
+      <h1 className="text-4xl font-bold mb-4 text-lightText">
+        Welcome to Finch Family Fudge
+      </h1>
+      <p className="mb-6 text-lightText">
+        Indulge in our delicious, handcrafted fudge made with love and the
+        finest ingredients.
+      </p>
+      <Link to="/products">
+        <Button variant="primary">Browse Products</Button>
+      </Link>
     </div>
   );
 };

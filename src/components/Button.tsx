@@ -1,3 +1,4 @@
+// src/components/Button.tsx
 import React from "react";
 import { IonIcon } from "@ionic/react";
 import { logoVenmo } from "ionicons/icons";
@@ -14,30 +15,26 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   ...props
 }) => {
-  let variantStyles = "";
+  let variantClass = "";
   switch (variant) {
     case "primary":
-      variantStyles =
-        "bg-finchGold text-darkBg hover:bg-yellow-500 hover:scale-105";
+      variantClass = "btn-primary";
       break;
     case "secondary":
-      variantStyles = "bg-red-500 text-white hover:bg-red-600 hover:scale-105";
+      variantClass = "btn-secondary";
       break;
     case "venmo":
-      variantStyles =
-        "bg-[#3D95CE] text-white hover:bg-[#1E7DB8] hover:scale-105 flex items-center justify-center";
+      variantClass = "btn-venmo";
       break;
     default:
-      variantStyles =
-        "bg-finchGold text-darkBg hover:bg-yellow-500 hover:scale-105";
+      variantClass = "btn-primary";
   }
 
   return (
-    <button
-      className={`px-4 py-2 rounded transition-transform duration-200 transform focus:outline-none ${variantStyles}`}
-      {...props}
-    >
-      {variant === "venmo" && icon && <span className="mr-2">{icon}</span>}
+    <button className={`${variantClass}`} {...props}>
+      {variant === "venmo" && icon && (
+        <IonIcon icon={logoVenmo} className="mr-2" />
+      )}
       {children}
     </button>
   );
