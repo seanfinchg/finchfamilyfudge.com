@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import PageTitle from "../components/PageTitle"; // Import PageTitle
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    document.title = "Finch Family Fudge | Home";
+  }, []);
+
   return (
     <div className="flex-grow flex items-center justify-center bg-darkBg animate-fadeIn">
-      <PageTitle title="Finch Family Fudge | Home" /> {/* Set Page Title */}
       <div className="text-center px-4 w-full max-w-2xl">
         <h1 className="text-4xl font-bold mb-4 text-lightText">
           Welcome to Finch Family Fudge

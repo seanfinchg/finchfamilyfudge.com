@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { products } from "../data/products";
-import PageTitle from "../components/PageTitle"; // Import PageTitle
 
 const Products: React.FC = () => {
+  useEffect(() => {
+    document.title = "Finch Family Fudge | Products";
+  }, []);
+
   return (
     <div className="w-full p-4 animate-fadeIn">
-      <PageTitle title="Finch Family Fudge | Products" /> {/* Set Page Title */}
       <h2 className="text-3xl font-bold mb-6 text-center text-lightText">
         Our Products
       </h2>

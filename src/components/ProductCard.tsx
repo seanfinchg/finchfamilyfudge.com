@@ -15,7 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="border rounded-lg p-4 shadow-lg flex flex-col bg-gray-800">
+    <div className="border rounded-lg p-4 shadow-lg flex flex-col bg-gray-800 animate-fadeIn">
       <img
         src={product.image}
         alt={product.name}

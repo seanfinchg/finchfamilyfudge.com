@@ -1,10 +1,12 @@
-import React from "react";
-import PageTitle from "../components/PageTitle"; // Import PageTitle
+import React, { useEffect } from "react";
 
 const About: React.FC = () => {
+  useEffect(() => {
+    document.title = "Finch Family Fudge | About";
+  }, []);
+
   return (
     <div className="container mx-auto p-4 animate-fadeIn">
-      <PageTitle title="Finch Family Fudge | About" /> {/* Set Page Title */}
       <h2 className="text-3xl font-bold mb-4 text-lightText">About Me</h2>
       <p className="mb-4 text-lightText">
         Hello! I'm Sean Finch, the proud owner of Finch Family Fudge. Passionate
