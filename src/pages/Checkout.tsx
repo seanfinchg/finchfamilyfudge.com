@@ -1,69 +1,33 @@
 // src/pages/Checkout.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { IonIcon } from "@ionic/react";
-import { logoVenmo } from "ionicons/icons";
 
 const Checkout: React.FC = () => {
   useEffect(() => {
     document.title = "Finch Family Fudge | Checkout";
   }, []);
 
-  const { cartItems, totalPrice, clearCart } = useCart();
+  const { cartItems, totalPrice } = useCart();
   const navigate = useNavigate();
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Function to detect if the user is on a mobile device
-  useEffect(() => {
-    const userAgent = navigator.userAgent || navigator.vendor;
-    const mobile = /android|iphone|ipad|iPod|windows phone/i.test(userAgent);
-    setIsMobile(mobile);
-  }, []);
-
-  const generatePaymentNote = () => {
-    return cartItems
-      .map((item) => `${item.name} (${item.size.label}) x${item.quantity}`)
-      .join(", ");
-  };
-
-  const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
-    2
-  )}&note=${encodeURIComponent(`Order: ${generatePaymentNote()}`)}`;
-
-  const handleVenmo = () => {
-    if (isMobile) {
-      setShowConfirmation(true);
-    } else {
-      proceedToVenmo();
-    }
-  };
-
-  const proceedToVenmo = () => {
-    window.open(venmoLink, "_blank");
-    clearCart();
-    navigate("/");
-  };
-
-  const handleConfirm = () => {
-    setShowConfirmation(false);
-    proceedToVenmo();
-  };
-
-  const handleCancel = () => {
-    setShowConfirmation(false);
-  };
 
   const handleBackToCart = () => {
     navigate("/cart");
   };
 
-  if (cartItems.length === 0) {
-    return (
-      <div className="container mx-auto p-4 animate-fadeIn">
-        <h2 className="text-2xl font-bold mb-4 text-lightText">Checkout</h2>
+  const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
+    2
+  )}`;
+
+  const handlePayWithVenmo = () => {
+    window.open(venmoLink, "_blank");
+  };
+
+  return (
+    <div className="container mx-auto p-4 animate-fadeIn">
+      <h2 className="text-2xl font-bold mb-4 text-lightText">Checkout</h2>
+      {cartItems.length === 0 ? (
         <p className="text-lightText">
           Your cart is empty.{" "}
           <button
@@ -74,87 +38,43 @@ const Checkout: React.FC = () => {
           </button>
           .
         </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="container mx-auto p-4 animate-fadeIn">
-      <h2 className="text-2xl font-bold mb-4 text-lightText">Checkout</h2>
-      <ul>
-        {cartItems.map((item, index) => (
-          <li
-            key={`${item.id}-${item.size.label}`}
-            className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 bg-gray-800 p-4 rounded"
-          >
-            <div className="flex items-center mb-2 sm:mb-0">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-16 h-16 object-cover mr-4 rounded"
-              />
-              <div className="text-lightText">
-                <span className="font-semibold">{item.name}</span> -{" "}
-                {item.size.label} x {item.quantity}
-              </div>
-            </div>
-            <div className="text-lightText">
-              ${(item.size.price * item.quantity).toFixed(2)}
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-4 flex justify-between items-center">
-        <span className="text-xl font-semibold text-lightText">
-          Total: ${totalPrice.toFixed(2)}
-        </span>
-      </div>
-      <div className="mt-6 flex flex-col space-y-4">
-        <Button
-          variant="venmo"
-          onClick={handleVenmo}
-          className="w-full flex items-center justify-center"
-        >
-          <IonIcon icon={logoVenmo} className="mr-2" />
-          Pay with Venmo
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={handleBackToCart}
-          className="w-full"
-        >
-          Back to Cart
-        </Button>
-      </div>
-      <p className="mt-4 text-red-500 text-center">
-        *Your order will not be processed until the payment is successfully
-        completed on Venmo.
-      </p>
-      <p className="mt-2 text-lightText text-center">
-        Cash is also accepted if purchased in person.
-      </p>
-
-      {/* Confirmation Modal */}
-      {showConfirmation && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3 className="text-xl font-bold mb-4">Confirm Venmo Payment</h3>
-            <p className="mb-4">
-              You are about to pay via Venmo on a mobile device. Please ensure
-              you manually add your order details in the Venmo note to ensure
-              your order is processed correctly.
-            </p>
-            <p className="mb-4 text-red-500">
-              *If you do not add the order note, your order will not be
-              completed.
-            </p>
-            <div className="flex justify-end space-x-4">
-              <button onClick={handleCancel} className="btn-secondary">
-                Cancel
-              </button>
-              <button onClick={handleConfirm} className="btn-primary">
-                Proceed to Venmo
-              </button>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((item, index) => (
+              <li key={`${item.id}-${item.size.label}`} className="cart-item">
+                <div className="flex items-center mb-2 sm:mb-0">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="cart-item-image"
+                  />
+                  <div className="cart-item-details">
+                    <h3 className="text-xl font-semibold text-lightText">
+                      {item.name}
+                    </h3>
+                    <p className="text-lightText">
+                      {item.size.label} - ${item.size.price}
+                    </p>
+                    <p className="text-lightText">
+                      {item.inStock ? "In Stock" : "Out of Stock"}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-col sm:flex-row justify-between items-center">
+            <span className="text-xl font-semibold text-lightText">
+              Total: ${totalPrice.toFixed(2)}
+            </span>
+            <div className="flex space-x-4 mt-4 sm:mt-0">
+              <Button variant="primary" onClick={handleBackToCart}>
+                Back to Cart
+              </Button>
+              <Button variant="venmo" onClick={handlePayWithVenmo}>
+                Pay with Venmo
+              </Button>
             </div>
           </div>
         </div>

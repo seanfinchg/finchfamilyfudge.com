@@ -13,10 +13,6 @@ const Cart: React.FC = () => {
     useCart();
   const navigate = useNavigate();
 
-  const handleCheckout = () => {
-    navigate("/checkout");
-  };
-
   const handleClearCart = () => {
     clearCart();
   };
@@ -81,10 +77,7 @@ const Cart: React.FC = () => {
               Total: ${totalPrice.toFixed(2)}
             </span>
             <div className="flex space-x-4 mt-4 sm:mt-0">
-              <Button variant="primary" onClick={handleCheckout}>
-                Checkout
-              </Button>
-              <Button variant="secondary" onClick={handleClearCart}>
+              <Button variant="primary" onClick={handleClearCart}>
                 Clear Cart
               </Button>
             </div>

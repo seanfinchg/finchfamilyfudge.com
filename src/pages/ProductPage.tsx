@@ -1,24 +1,21 @@
 // src/pages/ProductPage.tsx
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Product, Size } from "../types";
 import { useCart } from "../context/CartContext";
 import Button from "../components/Button";
-import { IonIcon } from "@ionic/react";
-import { logoVenmo } from "ionicons/icons";
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedSize, setSelectedSize] = useState<Size | undefined>();
 
   useEffect(() => {
-    // Fetch the product based on the ID from the URL
+    // Fetch the product based on the ID from the URL slug
     import("../data/products").then((module) => {
       const foundProduct = module.products.find(
-        (p: Product) => p.id === parseInt(id || "0")
+        (p: Product) => p.name.toLowerCase().replace(/\s+/g, "-") === id
       );
       setProduct(foundProduct || null);
       setSelectedSize(foundProduct?.sizes[0]);
@@ -28,7 +25,6 @@ const ProductPage: React.FC = () => {
   const handleAddToCart = () => {
     if (product && selectedSize && product.inStock) {
       addToCart({ ...product, size: selectedSize, quantity: 1 });
-      navigate("/cart");
     }
   };
 
@@ -38,7 +34,7 @@ const ProductPage: React.FC = () => {
         <h2 className="text-2xl font-bold mb-4 text-lightText">
           Product Not Found
         </h2>
-        <Button variant="primary" onClick={() => navigate("/products")}>
+        <Button variant="primary" onClick={() => window.history.back()}>
           Back to Products
         </Button>
       </div>
@@ -93,9 +89,8 @@ const ProductPage: React.FC = () => {
             <Button
               variant="primary"
               onClick={handleAddToCart}
-              className="w-full flex items-center justify-center"
+              className="w-full"
             >
-              <IonIcon icon={logoVenmo} className="mr-2" />
               Add to Cart
             </Button>
           </>

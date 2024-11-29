@@ -18,20 +18,23 @@ const Button: React.FC<ButtonProps> = ({
   let variantClass = "";
   switch (variant) {
     case "primary":
-      variantClass = "btn-primary";
+      variantClass = "bg-finchGold text-darkBg hover:bg-yellow-500";
       break;
     case "secondary":
-      variantClass = "btn-secondary";
+      variantClass = "bg-red-500 text-white hover:bg-red-600";
       break;
     case "venmo":
-      variantClass = "btn-venmo";
+      variantClass = "bg-[#3D95CE] text-white hover:bg-[#1E7DB8]";
       break;
     default:
-      variantClass = "btn-primary";
+      variantClass = "bg-finchGold text-darkBg hover:bg-yellow-500";
   }
 
   return (
-    <button className={`${variantClass}`} {...props}>
+    <button
+      className={`${variantClass} px-4 py-2 rounded transition-transform duration-200 focus:outline-none`}
+      {...props}
+    >
       {variant === "venmo" && icon && (
         <IonIcon icon={logoVenmo} className="mr-2" />
       )}
