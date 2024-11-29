@@ -3,9 +3,9 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 
-const OrderSummary: React.FC = () => {
+const Checkout: React.FC = () => {
   useEffect(() => {
-    document.title = "Finch Family Fudge | Order Summary";
+    document.title = "Finch Family Fudge | Checkout";
   }, []);
 
   const { cartItems, totalPrice, clearCart } = useCart();
@@ -13,7 +13,7 @@ const OrderSummary: React.FC = () => {
 
   const generatePaymentNote = () => {
     return cartItems
-      .map((item) => `${item.name} (${item.size.label})`)
+      .map((item) => `${item.name} (${item.size.label}) x${item.quantity}`)
       .join(", ");
   };
 
@@ -29,12 +29,14 @@ const OrderSummary: React.FC = () => {
     navigate("/");
   };
 
+  const handleBackToCart = () => {
+    navigate("/cart");
+  };
+
   if (cartItems.length === 0) {
     return (
       <div className="container mx-auto p-4 animate-fadeIn">
-        <h2 className="text-2xl font-bold mb-4 text-lightText">
-          Order Summary
-        </h2>
+        <h2 className="text-2xl font-bold mb-4 text-lightText">Checkout</h2>
         <p className="text-lightText">
           Your cart is empty.{" "}
           <button
@@ -51,18 +53,20 @@ const OrderSummary: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 animate-fadeIn">
-      <h2 className="text-2xl font-bold mb-4 text-lightText">Order Summary</h2>
+      <h2 className="text-2xl font-bold mb-4 text-lightText">Checkout</h2>
       <ul>
         {cartItems.map((item, index) => (
           <li
-            key={index}
+            key={`${item.id}-${item.size.label}`}
             className="flex justify-between items-center mb-2 bg-gray-800 p-2 rounded"
           >
             <div className="text-lightText">
               <span className="font-semibold">{item.name}</span> -{" "}
-              {item.size.label}
+              {item.size.label} x {item.quantity}
             </div>
-            <div className="text-lightText">${item.size.price}</div>
+            <div className="text-lightText">
+              ${(item.size.price * item.quantity).toFixed(2)}
+            </div>
           </li>
         ))}
       </ul>
@@ -72,16 +76,22 @@ const OrderSummary: React.FC = () => {
         </span>
       </div>
       <div className="mt-6 flex flex-col space-y-4">
-        <Button variant="primary" onClick={handleVenmo}>
+        <Button variant="venmo" onClick={handleVenmo}>
           Pay with Venmo
+        </Button>
+        <Button variant="secondary" onClick={handleBackToCart}>
+          Back to Cart
         </Button>
       </div>
       <p className="mt-4 text-red-500 text-center">
         *Your order will not be processed until the payment is successfully
         completed on Venmo.
       </p>
+      <p className="mt-2 text-lightText text-center">
+        Cash is also accepted if purchased in person.
+      </p>
     </div>
   );
 };
 
-export default OrderSummary;
+export default Checkout;

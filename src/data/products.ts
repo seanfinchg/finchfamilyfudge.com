@@ -4,7 +4,7 @@ export const products: Product[] = [
   {
     id: 1,
     name: "Chocolate Fudge",
-    image: "/images/chocolate-fudge.jpg", // Placeholder image path
+    image: "/images/chocolate-fudge.jpg",
     sizes: [
       { label: "Small", price: 5 },
       { label: "Medium", price: 10 },

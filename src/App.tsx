@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
-import OrderSummary from "./pages/OrderSummary";
+import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
@@ -23,7 +23,7 @@ const App: React.FC = () => {
                 <Route path="/products" element={<Products />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path="/order-summary" element={<OrderSummary />} />
+                <Route path="/checkout" element={<Checkout />} />
               </Routes>
             </main>
             <Footer />

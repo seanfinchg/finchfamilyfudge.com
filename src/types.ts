@@ -12,4 +12,5 @@ export interface Product {
 
 export interface CartItem extends Product {
   size: Size;
+  quantity: number;
 }
