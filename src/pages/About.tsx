@@ -1,3 +1,4 @@
+// src/pages/About.tsx
 import React, { useEffect } from "react";
 
 const About: React.FC = () => {

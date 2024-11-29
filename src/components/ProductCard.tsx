@@ -22,11 +22,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card">
       <img
-        src={product.image}
+        src={product.images[0]} // Use only the first image here
         alt={product.name}
         className="product-card-image"
       />
-      <div className="product-card-details">
+      <div className="product-card-details flex flex-col flex-grow">
         <h3 className="text-xl font-semibold mb-2 text-lightText">
           {product.name}
         </h3>
@@ -59,7 +59,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 );
                 if (size) setSelectedSize(size);
               }}
-              className="product-card-select"
+              className="w-full p-2 border rounded bg-gray-700 text-lightText mb-4"
             >
               {product.sizes.map((size) => (
                 <option key={size.label} value={size.label}>
@@ -68,21 +68,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               ))}
             </select>
             <Button
-              variant="primary"
+              variant="primary" // Yellow as per request
               onClick={handleAddToCart}
-              className="product-card-button"
+              className="w-full"
               disabled={!product.inStock}
             >
               Add to Cart
             </Button>
           </>
         )}
-        <Link
-          to={`/products/${product.id}`}
-          className="mt-2 text-finchGold hover:underline"
-        >
-          View Details
-        </Link>
+        <div className="mt-2 text-center">
+          <Link
+            to={`/products/${product.slug}`} // Use slug here
+            className="text-finchGold hover:underline inline-block mt-auto"
+          >
+            View Details
+          </Link>
+        </div>
       </div>
     </div>
   );

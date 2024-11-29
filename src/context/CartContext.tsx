@@ -1,3 +1,4 @@
+// src/context/CartContext.tsx
 import React, { createContext, useContext, useState } from "react";
 import { CartItem } from "../types";
 import { useToast } from "./ToastContext";
@@ -54,6 +55,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const clearCart = () => {
     setCartItems([]);
+    showToast("Cart cleared.");
   };
 
   const totalPrice = cartItems.reduce(

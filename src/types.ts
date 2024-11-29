@@ -7,8 +7,9 @@ export interface Size {
 export interface Product {
   id: number;
   name: string;
+  slug: string; // Added slug
   description: string;
-  image: string;
+  images: string[]; // Supports multiple images
   sizes: Size[];
   inStock: boolean;
 }

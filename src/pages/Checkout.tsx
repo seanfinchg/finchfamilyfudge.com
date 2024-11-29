@@ -45,11 +45,11 @@ const Checkout: React.FC = () => {
               <li key={`${item.id}-${item.size.label}`} className="cart-item">
                 <div className="flex items-center mb-2 sm:mb-0">
                   <img
-                    src={item.image}
+                    src={item.images[0]} // Show only the first image
                     alt={item.name}
-                    className="cart-item-image"
+                    className="w-16 h-16 object-cover mr-4 rounded"
                   />
-                  <div className="cart-item-details">
+                  <div className="flex flex-col">
                     <h3 className="text-xl font-semibold text-lightText">
                       {item.name}
                     </h3>

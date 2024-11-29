@@ -1,3 +1,4 @@
+// src/components/Navbar.tsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
@@ -19,13 +20,13 @@ const Navbar: React.FC = () => {
       </div>
       {/* Desktop Menu */}
       <div className="space-x-6 hidden md:flex items-center">
-        <Link to="/" className="text-lightText hover:text-gray-300">
+        <Link to="/" className="text-lightText hover:text-finchGold">
           Home
         </Link>
-        <Link to="/products" className="text-lightText hover:text-gray-300">
+        <Link to="/products" className="text-lightText hover:text-finchGold">
           Products
         </Link>
-        <Link to="/about" className="text-lightText hover:text-gray-300">
+        <Link to="/about" className="text-lightText hover:text-finchGold">
           About
         </Link>
         {/* Cart Icon */}
