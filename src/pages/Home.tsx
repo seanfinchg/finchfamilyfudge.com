@@ -9,7 +9,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4 animate-fadeIn flex flex-col items-center justify-center text-center">
+    <div className="container mx-auto p-4 animate-fadeIn flex flex-grow flex-col justify-center items-center text-center">
       <h1 className="text-4xl font-bold mb-4 text-lightText">
         Welcome to Finch Family Fudge
       </h1>

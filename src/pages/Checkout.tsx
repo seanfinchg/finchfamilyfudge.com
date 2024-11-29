@@ -16,9 +16,19 @@ const Checkout: React.FC = () => {
     navigate("/cart");
   };
 
+  const getOrderSummary = () => {
+    if (cartItems.length === 0) return "";
+    return cartItems
+      .map((item) => `${item.quantity}x ${item.name} (${item.size.label})`)
+      .join(", ");
+  };
+
+  const orderSummary = getOrderSummary();
+  const encodedNote = encodeURIComponent(`Order: ${orderSummary}`);
+
   const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
     2
-  )}`;
+  )}&note=${encodedNote}`;
 
   const handlePayWithVenmo = () => {
     window.open(venmoLink, "_blank");
@@ -26,7 +36,7 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 animate-fadeIn">
-      <h2 className="text-2xl font-bold mb-4 text-lightText">Checkout</h2>
+      <h2 className="text-2xl font-bold mb-6 text-lightText">Checkout</h2>
       {cartItems.length === 0 ? (
         <p className="text-lightText">
           Your cart is empty.{" "}
@@ -40,16 +50,19 @@ const Checkout: React.FC = () => {
         </p>
       ) : (
         <div>
-          <ul>
+          <ul className="space-y-6">
             {cartItems.map((item, index) => (
-              <li key={`${item.id}-${item.size.label}`} className="cart-item">
-                <div className="flex items-center mb-2 sm:mb-0">
+              <li
+                key={`${item.id}-${item.size.label}`}
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded space-y-4 sm:space-y-0"
+              >
+                <div className="flex items-center space-x-6">
                   <img
                     src={item.images[0]} // Show only the first image
                     alt={item.name}
-                    className="w-16 h-16 object-cover mr-4 rounded"
+                    className="w-24 h-24 object-cover rounded"
                   />
-                  <div className="flex flex-col">
+                  <div className="flex flex-col space-y-2">
                     <h3 className="text-xl font-semibold text-lightText">
                       {item.name}
                     </h3>
@@ -64,12 +77,12 @@ const Checkout: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex flex-col sm:flex-row justify-between items-center">
+          <div className="mt-8 flex flex-col sm:flex-row justify-between items-center">
             <span className="text-xl font-semibold text-lightText">
               Total: ${totalPrice.toFixed(2)}
             </span>
             <div className="flex space-x-4 mt-4 sm:mt-0">
-              <Button variant="primary" onClick={handleBackToCart}>
+              <Button variant="secondary" onClick={handleBackToCart}>
                 Back to Cart
               </Button>
               <Button variant="venmo" onClick={handlePayWithVenmo}>

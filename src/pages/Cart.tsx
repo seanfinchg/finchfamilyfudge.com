@@ -19,7 +19,7 @@ const Cart: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 animate-fadeIn">
-      <h2 className="text-2xl font-bold mb-4 text-lightText">Your Cart</h2>
+      <h2 className="text-2xl font-bold mb-6 text-lightText">Your Cart</h2>
       {cartItems.length === 0 ? (
         <p className="text-lightText">
           Your cart is empty.{" "}
@@ -30,16 +30,19 @@ const Cart: React.FC = () => {
         </p>
       ) : (
         <div>
-          <ul>
+          <ul className="space-y-6">
             {cartItems.map((item, index) => (
-              <li key={`${item.id}-${item.size.label}`} className="cart-item">
-                <div className="flex items-center mb-2 sm:mb-0">
+              <li
+                key={`${item.id}-${item.size.label}`}
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded space-y-4 sm:space-y-0"
+              >
+                <div className="flex items-center space-x-6">
                   <img
                     src={item.images[0]} // Show only the first image
                     alt={item.name}
-                    className="w-16 h-16 object-cover mr-4 rounded"
+                    className="w-24 h-24 object-cover rounded"
                   />
-                  <div className="flex flex-col">
+                  <div className="flex flex-col space-y-2">
                     <h3 className="text-xl font-semibold text-lightText">
                       {item.name}
                     </h3>
@@ -63,7 +66,7 @@ const Cart: React.FC = () => {
                     disabled={!item.inStock}
                   />
                   <Button
-                    variant="secondary" // Use Tailwind variant
+                    variant="secondary" // Red for Remove button
                     onClick={() => removeFromCart(index)}
                   >
                     Remove
@@ -72,7 +75,7 @@ const Cart: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex flex-col sm:flex-row justify-between items-center">
+          <div className="mt-8 flex flex-col sm:flex-row justify-between items-center">
             <span className="text-xl font-semibold text-lightText">
               Total: ${totalPrice.toFixed(2)}
             </span>
@@ -85,7 +88,7 @@ const Cart: React.FC = () => {
               </Button>
             </div>
           </div>
-          <p className="mt-4 text-lightText">
+          <p className="mt-6 text-lightText">
             *Your order will not be processed unless the payment successfully
             goes through on Venmo.
           </p>
