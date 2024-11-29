@@ -38,7 +38,12 @@ body {
 }
 
 /* Heading Styles */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #f5f5f5; /* Very Light Text for Headings */
 }
 
@@ -53,7 +58,8 @@ button {
   background-color: #fbbf24; /* Finch Gold */
   color: #1a1a1a; /* Dark Text on Button */
   cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+  transition: background-color 0.25s, border-color 0.25s, transform 0.2s,
+    box-shadow 0.2s;
 }
 button:hover {
   background-color: #f59e0b; /* Darker Gold on Hover */
@@ -83,8 +89,12 @@ button:focus-visible {
 
 /* Optional: Fade-in Animation */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-fadeIn {

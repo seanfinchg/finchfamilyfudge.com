@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa'; // Added icons for menu
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa"; // Added icons for menu
 
 const Navbar: React.FC = () => {
   const { cartItems } = useCart();
@@ -40,8 +40,15 @@ const Navbar: React.FC = () => {
       </div>
       {/* Mobile Menu Button */}
       <div className="md:hidden flex items-center">
-        <button onClick={toggleMobileMenu} className="text-lightText focus:outline-none">
-          {isMobileMenuOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
+        <button
+          onClick={toggleMobileMenu}
+          className="text-lightText focus:outline-none"
+        >
+          {isMobileMenuOpen ? (
+            <FaTimes className="h-6 w-6" />
+          ) : (
+            <FaBars className="h-6 w-6" />
+          )}
         </button>
       </div>
       {/* Mobile Menu */}

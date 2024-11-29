@@ -1,14 +1,14 @@
-import React from 'react';
-import { useCart } from '../context/CartContext';
-import { Link, useNavigate } from 'react-router-dom';
-import PageTitle from '../components/PageTitle'; // Import PageTitle
+import React from "react";
+import { useCart } from "../context/CartContext";
+import { Link, useNavigate } from "react-router-dom";
+import PageTitle from "../components/PageTitle"; // Import PageTitle
 
 const Cart: React.FC = () => {
   const { cartItems, removeFromCart, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate('/order-summary');
+    navigate("/order-summary");
   };
 
   const handleClearCart = () => {
@@ -21,15 +21,23 @@ const Cart: React.FC = () => {
       <h2 className="text-2xl font-bold mb-4 text-lightText">Your Cart</h2>
       {cartItems.length === 0 ? (
         <p className="text-lightText">
-          Your cart is empty. <Link to="/products" className="text-finchGold">Shop now</Link>.
+          Your cart is empty.{" "}
+          <Link to="/products" className="text-finchGold">
+            Shop now
+          </Link>
+          .
         </p>
       ) : (
         <div>
           <ul>
             {cartItems.map((item, index) => (
-              <li key={index} className="flex justify-between items-center mb-2 bg-gray-800 p-2 rounded">
+              <li
+                key={index}
+                className="flex justify-between items-center mb-2 bg-gray-800 p-2 rounded"
+              >
                 <div className="text-lightText">
-                  <span className="font-semibold">{item.name}</span> - {item.size.label}
+                  <span className="font-semibold">{item.name}</span> -{" "}
+                  {item.size.label}
                 </div>
                 <div className="flex items-center text-lightText">
                   <span className="mr-4">${item.size.price}</span>
@@ -44,7 +52,9 @@ const Cart: React.FC = () => {
             ))}
           </ul>
           <div className="mt-4 flex justify-between items-center">
-            <span className="text-xl font-semibold text-lightText">Total: ${totalPrice.toFixed(2)}</span>
+            <span className="text-xl font-semibold text-lightText">
+              Total: ${totalPrice.toFixed(2)}
+            </span>
             <div className="flex space-x-4">
               <button
                 onClick={handleCheckout}

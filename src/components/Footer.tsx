@@ -1,13 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-darkBg p-4 text-center text-lightText w-full">
-      <p>&copy; {new Date().getFullYear()} Finch Family Fudge. All rights reserved.</p>
+      <p>
+        &copy; {new Date().getFullYear()} Finch Family Fudge. All rights
+        reserved.
+      </p>
       <p>
         Visit my other website:{" "}
-        <a href="https://seanfinch.com" className="text-finchGold hover:text-yellow-400">
+        <a
+          href="https://seanfinch.com"
+          className="text-finchGold hover:text-yellow-400"
+        >
           seanfinch.com
         </a>
       </p>
