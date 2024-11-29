@@ -1,12 +1,13 @@
 // src/pages/ProductPage.tsx
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Removed Link import
 import { Product, Size } from "../types";
 import { useCart } from "../context/CartContext";
 import Button from "../components/Button";
+import { FaArrowLeft } from "react-icons/fa"; // Import Fa back icon
 
 const ProductPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>(); // Changed from id to slug
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
@@ -41,8 +42,8 @@ const ProductPage: React.FC = () => {
 
   if (!product) {
     return (
-      <div className="container mx-auto p-4 animate-fadeIn">
-        <h2 className="text-2xl font-bold mb-4 text-lightText">
+      <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
+        <h2 className="text-2xl font-bold mb-6 text-lightText">
           Product Not Found
         </h2>
         <Button variant="primary" onClick={() => navigate("/products")}>
@@ -53,99 +54,84 @@ const ProductPage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 animate-fadeIn flex flex-col md:flex-row">
-      <div className="w-full md:w-1/2">
-        <div className="relative">
+    <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/products")}
+        className="flex items-center text-finchGold hover:text-yellow-500 transition-transform duration-200 hover:scale-105 mb-6"
+      >
+        <FaArrowLeft className="mr-2" />
+        Back to Products
+      </button>
+
+      <div className="flex flex-col md:flex-row">
+        {/* Product Images */}
+        <div className="md:w-1/2 flex flex-col items-center">
           <img
             src={product.images[currentImageIndex]}
-            alt={`${product.name} - Image ${currentImageIndex + 1}`}
-            className="w-full h-auto object-cover rounded"
+            alt={`${product.name} Image ${currentImageIndex + 1}`}
+            className="w-64 h-64 object-contain rounded-lg mb-4" // Fixed size, object-contain to avoid clipping
           />
           {product.images.length > 1 && (
+            <div className="flex space-x-2">
+              {product.images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`w-4 h-4 rounded-full ${
+                    currentImageIndex === index
+                      ? "bg-finchGold"
+                      : "bg-gray-400 hover:bg-finchGold"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        {/* Product Details */}
+        <div className="md:w-1/2 flex flex-col justify-center mt-6 md:mt-0">
+          <h2 className="text-3xl font-bold mb-4 text-lightText">
+            {product.name}
+          </h2>
+          <p className="mb-4 text-lightText">{product.description}</p>
+          <p
+            className={`mb-4 ${
+              product.inStock ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {product.inStock ? "In Stock" : "Out of Stock"}
+          </p>
+          {product.inStock && (
             <>
-              <button
-                onClick={() => handleImageChange("prev")}
-                className="absolute top-1/2 left-0 transform -translate-y-1/2 text-lightText bg-gray-700 p-2 rounded hover:bg-gray-600"
+              <label
+                htmlFor="size"
+                className="block mb-2 text-lightText font-semibold"
               >
-                Prev
-              </button>
-              <button
-                onClick={() => handleImageChange("next")}
-                className="absolute top-1/2 right-0 transform -translate-y-1/2 text-lightText bg-gray-700 p-2 rounded hover:bg-gray-600"
+                Select Size:
+              </label>
+              <select
+                id="size"
+                value={selectedSize?.label}
+                onChange={(e) => {
+                  const size = product.sizes.find(
+                    (s) => s.label === e.target.value
+                  );
+                  if (size) setSelectedSize(size);
+                }}
+                className="w-full p-3 border rounded-lg bg-gray-700 text-lightText mb-6"
               >
-                Next
-              </button>
+                {product.sizes.map((size) => (
+                  <option key={size.label} value={size.label}>
+                    {size.label} - ${size.price}
+                  </option>
+                ))}
+              </select>
+              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <Button variant="primary">Add to Cart</Button>
+              </div>
             </>
           )}
         </div>
-        {product.images.length > 1 && (
-          <div className="flex justify-center mt-2">
-            {product.images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImageIndex(index)}
-                className={`w-4 h-4 mx-1 rounded-full ${
-                  currentImageIndex === index
-                    ? "bg-finchGold"
-                    : "bg-gray-700 hover:bg-gray-600"
-                }`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-      <div className="flex flex-col md:w-1/2 md:ml-6">
-        <h2 className="text-3xl font-bold mb-2 text-lightText">
-          {product.name}
-        </h2>
-        <p className="text-lg text-lightText mb-4">{product.description}</p>
-        {selectedSize && (
-          <p className="text-xl font-semibold text-lightText mb-4">
-            Price: ${selectedSize.price}
-          </p>
-        )}
-        <p className="mb-4 text-lightText">
-          Status:{" "}
-          <span className={product.inStock ? "text-green-500" : "text-red-500"}>
-            {product.inStock ? "In Stock" : "Out of Stock"}
-          </span>
-        </p>
-        {product.inStock && (
-          <>
-            <label htmlFor="size" className="mb-2 text-lightText">
-              Select Size:
-            </label>
-            <select
-              id="size"
-              value={selectedSize?.label}
-              onChange={(e) => {
-                const size = product.sizes.find(
-                  (s) => s.label === e.target.value
-                );
-                if (size) setSelectedSize(size);
-              }}
-              className="w-full p-2 border rounded bg-gray-700 text-lightText mb-4"
-            >
-              {product.sizes.map((size) => (
-                <option key={size.label} value={size.label}>
-                  {size.label} - ${size.price}
-                </option>
-              ))}
-            </select>
-            <Button
-              variant="primary"
-              onClick={handleAddToCart}
-              className="w-full"
-            >
-              Add to Cart
-            </Button>
-          </>
-        )}
-        {!product.inStock && (
-          <p className="text-red-500">
-            This product is currently out of stock.
-          </p>
-        )}
       </div>
     </div>
   );

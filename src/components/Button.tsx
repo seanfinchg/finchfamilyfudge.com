@@ -17,22 +17,22 @@ const Button: React.FC<ButtonProps> = ({
   switch (variant) {
     case "primary":
       variantClass =
-        "bg-finchGold text-darkBg hover:bg-yellow-500 hover:scale-105";
+        "bg-finchGold text-darkBg hover:bg-yellow-600 hover:scale-105";
       break;
     case "secondary":
-      variantClass = "bg-red-500 text-white hover:bg-red-600 hover:scale-105";
+      variantClass = "bg-red-500 text-white hover:bg-red-700 hover:scale-105";
       break;
     case "venmo":
       variantClass = "bg-blue-500 text-white hover:bg-blue-700 hover:scale-105";
       break;
     default:
       variantClass =
-        "bg-finchGold text-darkBg hover:bg-yellow-500 hover:scale-105";
+        "bg-finchGold text-darkBg hover:bg-yellow-600 hover:scale-105";
   }
 
   return (
     <button
-      className={`${variantClass} px-4 py-2 rounded transition-transform duration-200 focus:outline-none flex items-center justify-center`}
+      className={`${variantClass} px-6 py-3 rounded-lg transition-transform duration-200 focus:outline-none flex items-center justify-center`}
       {...props}
     >
       {variant === "venmo" && (

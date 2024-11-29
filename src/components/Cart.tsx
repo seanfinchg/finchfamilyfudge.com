@@ -4,9 +4,11 @@ import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { logoVenmo } from "ionicons/icons";
+import Button from "./Button";
 
 const Cart: React.FC = () => {
-  const { cartItems, removeFromCart, totalPrice, clearCart } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, totalPrice, clearCart } =
+    useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -62,22 +64,23 @@ const Cart: React.FC = () => {
                 <img
                   src={item.images[0]} // Ensure each cart item has at least one image
                   alt={item.name}
-                  className="w-32 h-32 object-cover rounded-lg"
+                  className="w-32 h-32 object-contain rounded-lg"
                 />
                 {/* Product Details */}
                 <div className="flex-grow text-lightText space-y-2">
                   <span className="font-semibold text-xl">{item.name}</span>
                   <span>{item.size.label}</span>
                   <span>${item.size.price.toFixed(2)}</span>
+                  <span>Quantity: {item.quantity}</span>
                 </div>
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                  <button
+                  <Button
+                    variant="secondary" // Red variant for Remove button
                     onClick={() => removeFromCart(index)}
-                    className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-700 hover:scale-105 transition-transform duration-200 flex items-center justify-center"
                   >
                     Remove
-                  </button>
+                  </Button>
                 </div>
               </li>
             ))}
@@ -88,18 +91,12 @@ const Cart: React.FC = () => {
               Total: ${totalPrice.toFixed(2)}
             </span>
             <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4 sm:mt-0">
-              <button
-                onClick={handleCheckout}
-                className="bg-finchGold text-darkBg px-6 py-3 rounded-lg hover:bg-yellow-600 hover:scale-105 transition-transform duration-200"
-              >
+              <Button variant="primary" onClick={handleCheckout}>
                 Checkout
-              </button>
-              <button
-                onClick={handleClearCart}
-                className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-700 hover:scale-105 transition-transform duration-200"
-              >
+              </Button>
+              <Button variant="secondary" onClick={handleClearCart}>
                 Clear Cart
-              </button>
+              </Button>
               <button
                 onClick={handlePayWithVenmo}
                 className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 hover:scale-105 transition-transform duration-200 flex items-center justify-center"
