@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import { logoVenmo } from "ionicons/icons"; // Import Venmo icon from IonIcons
+import { IonIcon } from "@ionic/react";
 
 const Checkout: React.FC = () => {
   useEffect(() => {
@@ -76,7 +78,11 @@ const Checkout: React.FC = () => {
         </span>
       </div>
       <div className="mt-6 flex flex-col space-y-4">
-        <Button variant="venmo" onClick={handleVenmo}>
+        <Button
+          variant="venmo"
+          onClick={handleVenmo}
+          icon={<IonIcon icon={logoVenmo} />}
+        >
           Pay with Venmo
         </Button>
         <Button variant="secondary" onClick={handleBackToCart}>

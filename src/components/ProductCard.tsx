@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState<Size>(product.sizes[0]);
 
   const handleAddToCart = () => {
-    addToCart({ ...product, size: selectedSize, quantity: 1 });
+    addToCart({ ...product, size: selectedSize, quantity: 1 }); // Include quantity
   };
 
   return (

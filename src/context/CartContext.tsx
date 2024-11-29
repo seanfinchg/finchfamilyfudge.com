@@ -26,13 +26,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     if (existingIndex !== -1) {
       const updatedCart = [...cartItems];
-      updatedCart[existingIndex].quantity += 1;
+      updatedCart[existingIndex].quantity += product.quantity;
       setCartItems(updatedCart);
       showToast(
         `Increased quantity of ${product.name} (${product.size.label})`
       );
     } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      setCartItems([...cartItems, product]);
       showToast(`${product.name} (${product.size.label}) added to cart!`);
     }
   };
