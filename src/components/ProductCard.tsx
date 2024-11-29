@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Product, Size } from "../types";
 import { useCart } from "../context/CartContext";
+import Button from "./Button";
 
 interface ProductCardProps {
   product: Product;
@@ -47,12 +48,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           ))}
         </select>
       </div>
-      <button
-        onClick={handleAddToCart}
-        className="mt-auto bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500 transition-transform duration-200"
-      >
+      <Button variant="primary" onClick={handleAddToCart} className="mt-auto">
         Add to Cart
-      </button>
+      </Button>
     </div>
   );
 };

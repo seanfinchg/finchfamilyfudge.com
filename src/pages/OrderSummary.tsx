@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 const OrderSummary: React.FC = () => {
   useEffect(() => {
@@ -28,18 +29,6 @@ const OrderSummary: React.FC = () => {
     navigate("/");
   };
 
-  const handlePayPal = () => {
-    const note = encodeURIComponent(
-      `Purchase of Fudge: ${generatePaymentNote()}`
-    );
-    const paypalLink = `https://paypal.me/StraightUpSean/${totalPrice.toFixed(
-      2
-    )}?note=${note}`;
-    window.open(paypalLink, "_blank");
-    clearCart();
-    navigate("/");
-  };
-
   if (cartItems.length === 0) {
     return (
       <div className="container mx-auto p-4 animate-fadeIn">
@@ -50,7 +39,7 @@ const OrderSummary: React.FC = () => {
           Your cart is empty.{" "}
           <button
             onClick={() => navigate("/products")}
-            className="text-finchGold"
+            className="text-finchGold hover:underline"
           >
             Shop now
           </button>
@@ -83,19 +72,14 @@ const OrderSummary: React.FC = () => {
         </span>
       </div>
       <div className="mt-6 flex flex-col space-y-4">
-        <button
-          onClick={handleVenmo}
-          className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500 transition-transform duration-200"
-        >
+        <Button variant="primary" onClick={handleVenmo}>
           Pay with Venmo
-        </button>
-        <button
-          onClick={handlePayPal}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-transform duration-200"
-        >
-          Pay with PayPal
-        </button>
+        </Button>
       </div>
+      <p className="mt-4 text-red-500 text-center">
+        *Your order will not be processed until the payment is successfully
+        completed on Venmo.
+      </p>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Button from "../components/Button";
 
 const Home: React.FC = () => {
   useEffect(() => {
@@ -15,11 +16,8 @@ const Home: React.FC = () => {
         <p className="mb-6 text-lightText">
           Delicious, handcrafted fudge in a variety of flavors and sizes.
         </p>
-        <Link
-          to="/products"
-          className="bg-finchGold text-darkBg px-6 py-3 rounded hover:bg-yellow-500 text-lg transition-transform duration-200"
-        >
-          Shop Now
+        <Link to="/products">
+          <Button variant="primary">Shop Now</Button>
         </Link>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 const Cart: React.FC = () => {
   useEffect(() => {
@@ -24,7 +25,7 @@ const Cart: React.FC = () => {
       {cartItems.length === 0 ? (
         <p className="text-lightText">
           Your cart is empty.{" "}
-          <Link to="/products" className="text-finchGold">
+          <Link to="/products" className="text-finchGold hover:underline">
             Shop now
           </Link>
           .
@@ -43,12 +44,12 @@ const Cart: React.FC = () => {
                 </div>
                 <div className="flex items-center text-lightText">
                   <span className="mr-4">${item.size.price}</span>
-                  <button
+                  <Button
+                    variant="secondary"
                     onClick={() => removeFromCart(index)}
-                    className="text-red-500 hover:text-red-700"
                   >
                     Remove
-                  </button>
+                  </Button>
                 </div>
               </li>
             ))}
@@ -58,18 +59,12 @@ const Cart: React.FC = () => {
               Total: ${totalPrice.toFixed(2)}
             </span>
             <div className="flex space-x-4">
-              <button
-                onClick={handleCheckout}
-                className="bg-finchGold text-darkBg px-4 py-2 rounded hover:bg-yellow-500"
-              >
+              <Button variant="primary" onClick={handleCheckout}>
                 Checkout
-              </button>
-              <button
-                onClick={handleClearCart}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
+              </Button>
+              <Button variant="secondary" onClick={handleClearCart}>
                 Clear Cart
-              </button>
+              </Button>
             </div>
           </div>
         </div>
