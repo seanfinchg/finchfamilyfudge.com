@@ -1,5 +1,5 @@
 // src/pages/Checkout.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
@@ -12,26 +12,31 @@ const Checkout: React.FC = () => {
   const { cartItems, totalPrice } = useCart();
   const navigate = useNavigate();
 
-  const handleBackToCart = () => {
-    navigate("/cart");
+  // State to control the visibility of the confirmation modal
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  // Function to handle the "Pay with Venmo" button click
+  const handlePayWithVenmo = () => {
+    setShowConfirmModal(true);
   };
 
-  const getOrderSummary = () => {
-    if (cartItems.length === 0) return "";
-    return cartItems
+  // Function to proceed with Venmo payment
+  const handleProceed = () => {
+    const orderSummary = cartItems
       .map((item) => `${item.quantity}x ${item.name} (${item.size.label})`)
       .join(", ");
+    const encodedNote = encodeURIComponent(`Order: ${orderSummary}`);
+    const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
+      2
+    )}&note=${encodedNote}`;
+    window.open(venmoLink, "_blank");
+    setShowConfirmModal(false);
   };
 
-  const orderSummary = getOrderSummary();
-  const encodedNote = encodeURIComponent(`Order: ${orderSummary}`);
-
-  const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
-    2
-  )}&note=${encodedNote}`;
-
-  const handlePayWithVenmo = () => {
-    window.open(venmoLink, "_blank");
+  // Function to cancel and return to the cart
+  const handleCancel = () => {
+    setShowConfirmModal(false);
+    navigate("/cart");
   };
 
   return (
@@ -60,7 +65,7 @@ const Checkout: React.FC = () => {
                   <img
                     src={item.images[0]} // Show only the first image
                     alt={item.name}
-                    className="w-24 h-24 object-cover rounded"
+                    className="w-24 h-24 object-contain rounded"
                   />
                   <div className="flex flex-col space-y-2">
                     <h3 className="text-xl font-semibold text-lightText">
@@ -74,11 +79,6 @@ const Checkout: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <p className="font-semibold text-lightText">
-                    Quantity: {item.quantity}
-                  </p>
-                </div>
               </li>
             ))}
           </ul>
@@ -87,7 +87,7 @@ const Checkout: React.FC = () => {
               Total: ${totalPrice.toFixed(2)}
             </span>
             <div className="flex space-x-4 mt-4 sm:mt-0">
-              <Button variant="red" onClick={handleBackToCart}>
+              <Button variant="red" onClick={() => navigate("/cart")}>
                 Back to Cart
               </Button>
               <Button variant="venmo" onClick={handlePayWithVenmo}>
@@ -95,17 +95,43 @@ const Checkout: React.FC = () => {
               </Button>
             </div>
           </div>
-          <div>
-            <p className="my-3 font-bold text-red-500">
+          {/* Confirmation Modal */}
+          {showConfirmModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+              <div className="bg-gray-800 p-6 rounded-lg w-11/12 md:w-1/3">
+                <h3 className="text-xl font-semibold mb-4 text-lightText">
+                  Confirm Venmo Payment
+                </h3>
+                <p className="text-lightText mb-6">
+                  Please confirm that, if you are on a mobile device, you will
+                  manually enter your order details in the Venmo payment. If you
+                  do not do this, your order will be refunded. Do you want to
+                  proceed?
+                </p>
+                <div className="flex justify-end space-x-4">
+                  <Button variant="red" onClick={handleCancel}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" onClick={handleProceed}>
+                    Proceed
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+          {/* Additional Information */}
+          <div className="mt-6">
+            {/* Bold and Red Notices */}
+            <p className="font-bold text-red-500">
               *Your order will not be processed unless the payment successfully
               goes through on Venmo.
             </p>
-            <p className="my-3 font-bold text-red-500">
+            <p className="font-bold text-red-500 mt-2">
               *If you are on mobile, please make sure you manually input the
               products you are purchasing in the "Message" section of the Venmo
               payment, otherwise the order will be refunded.
             </p>
-            <p className="my-3 text-lightText">
+            <p className="mt-2 text-lightText">
               Cash is also accepted if purchased in person.
             </p>
           </div>
