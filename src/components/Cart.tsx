@@ -76,7 +76,7 @@ const Cart: React.FC = () => {
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
                   <Button
-                    variant="secondary" // Red variant for Remove button
+                    variant="red" // Red variant for Remove button
                     onClick={() => removeFromCart(index)}
                   >
                     Remove
@@ -94,7 +94,7 @@ const Cart: React.FC = () => {
               <Button variant="primary" onClick={handleCheckout}>
                 Checkout
               </Button>
-              <Button variant="secondary" onClick={handleClearCart}>
+              <Button variant="red" onClick={handleClearCart}>
                 Clear Cart
               </Button>
               <button

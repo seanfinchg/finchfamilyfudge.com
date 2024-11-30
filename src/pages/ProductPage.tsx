@@ -46,7 +46,7 @@ const ProductPage: React.FC = () => {
         <h2 className="text-2xl font-bold mb-6 text-lightText">
           Product Not Found
         </h2>
-        <Button variant="primary" onClick={() => navigate("/products")}>
+        <Button variant="back" onClick={() => navigate("/products")}>
           Back to Products
         </Button>
       </div>
@@ -56,21 +56,19 @@ const ProductPage: React.FC = () => {
   return (
     <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
       {/* Back Button */}
-      <button
-        onClick={() => navigate("/products")}
-        className="flex items-center text-finchGold hover:text-yellow-500 transition-transform duration-200 hover:scale-105 mb-6"
-      >
-        <FaArrowLeft className="mr-2" />
-        Back to Products
-      </button>
-
+      <div className="mb-10">
+        <Button variant="back" onClick={() => navigate("/products")}>
+          <FaArrowLeft className="mr-2" />
+          Back to Products
+        </Button>
+      </div>
       <div className="flex flex-col md:flex-row">
         {/* Product Images */}
-        <div className="md:w-1/2 flex flex-col items-center">
+        <div className="md:w-1/2 flex flex-col items-center md:mr-10">
           <img
             src={product.images[currentImageIndex]}
             alt={`${product.name} Image ${currentImageIndex + 1}`}
-            className="w-64 h-64 object-contain rounded-lg mb-4" // Fixed size, object-contain to avoid clipping
+            className="rounded-lg mb-4"
           />
           {product.images.length > 1 && (
             <div className="flex space-x-2">
@@ -127,7 +125,13 @@ const ProductPage: React.FC = () => {
                 ))}
               </select>
               <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <Button variant="primary">Add to Cart</Button>
+                <Button
+                  variant="primary"
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                >
+                  Add to Cart
+                </Button>
               </div>
             </>
           )}

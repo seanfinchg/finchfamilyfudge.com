@@ -74,6 +74,11 @@ const Checkout: React.FC = () => {
                     </p>
                   </div>
                 </div>
+                <div className="flex items-center space-x-4">
+                  <p className="font-semibold text-lightText">
+                    Quantity: {item.quantity}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>
@@ -82,13 +87,27 @@ const Checkout: React.FC = () => {
               Total: ${totalPrice.toFixed(2)}
             </span>
             <div className="flex space-x-4 mt-4 sm:mt-0">
-              <Button variant="secondary" onClick={handleBackToCart}>
+              <Button variant="red" onClick={handleBackToCart}>
                 Back to Cart
               </Button>
               <Button variant="venmo" onClick={handlePayWithVenmo}>
                 Pay with Venmo
               </Button>
             </div>
+          </div>
+          <div>
+            <p className="my-3 font-bold text-red-500">
+              *Your order will not be processed unless the payment successfully
+              goes through on Venmo.
+            </p>
+            <p className="my-3 font-bold text-red-500">
+              *If you are on mobile, please make sure you manually input the
+              products you are purchasing in the "Message" section of the Venmo
+              payment, otherwise the order will be refunded.
+            </p>
+            <p className="my-3 text-lightText">
+              Cash is also accepted if purchased in person.
+            </p>
           </div>
         </div>
       )}

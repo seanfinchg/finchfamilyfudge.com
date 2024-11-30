@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <img
         src={product.images[0]} // Use only the first image here
         alt={product.name}
-        className="product-card-image w-full h-64 object-cover mb-6 rounded"
+        className="product-card-image mb-6 rounded"
       />
       <div className="product-card-details flex flex-col flex-grow">
         <h3 className="text-xl font-semibold mb-2 text-lightText">
@@ -68,22 +68,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               ))}
             </select>
             <Button
-              variant="primary" // Gold as per request
+              variant="primary"
               onClick={handleAddToCart}
-              className="w-full"
               disabled={!product.inStock}
             >
               Add to Cart
             </Button>
+            <Link to={`/products/${product.slug}`}>
+              <button className="w-full px-6 py-3 rounded-lg transition-transform duration-200 focus:outline-none flex items-center justify-center bg-purple-500 text-white hover:bg-purple-700 hover:scale-105 my-2">
+                View Details
+              </button>
+            </Link>
           </>
         )}
-        <div className="mt-4">
-          <Link to={`/products/${product.slug}`}>
-            <button className="bg-purple-500 text-white hover:bg-purple-700 hover:scale-105 px-4 py-2 rounded transition-transform duration-200">
-              View Details
-            </button>
-          </Link>
-        </div>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 // src/components/Button.tsx
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import { logoVenmo } from "ionicons/icons";
+import { link, logoVenmo } from "ionicons/icons";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "venmo";
+  variant?: "primary" | "red" | "purple" | "venmo" | "back";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,17 +17,24 @@ const Button: React.FC<ButtonProps> = ({
   switch (variant) {
     case "primary":
       variantClass =
-        "bg-finchGold text-darkBg hover:bg-yellow-600 hover:scale-105";
+        "bg-finchGold text-darkBg hover:bg-yellow-600 hover:scale-105 my-2";
       break;
-    case "secondary":
-      variantClass = "bg-red-500 text-white hover:bg-red-700 hover:scale-105";
+    case "red":
+      variantClass =
+        "bg-red-500 text-white hover:bg-red-700 hover:scale-105 my-2";
+      break;
+    case "purple":
+      variantClass =
+        "bg-purple-500 text-white hover:bg-purple-700 hover:scale-105 my-2";
       break;
     case "venmo":
-      variantClass = "bg-blue-500 text-white hover:bg-blue-700 hover:scale-105";
-      break;
-    default:
       variantClass =
-        "bg-finchGold text-darkBg hover:bg-yellow-600 hover:scale-105";
+        "bg-blue-500 text-white hover:bg-blue-700 hover:scale-105 my-2";
+      break;
+    case "back":
+      variantClass =
+        "bg-blue-500 text-white hover:bg-blue-700 hover:scale-105 my-2 mx-auto";
+      break;
   }
 
   return (
