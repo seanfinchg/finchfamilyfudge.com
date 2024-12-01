@@ -77,6 +77,9 @@ const Checkout: React.FC = () => {
                     <p className="text-lightText">
                       {item.inStock ? "In Stock" : "Out of Stock"}
                     </p>
+<p class name="text-lightText font-bold">
+Quantity: {item.quantity}
+</p>
                   </div>
                 </div>
               </li>
