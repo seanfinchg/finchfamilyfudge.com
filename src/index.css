@@ -1,0 +1,71 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root Styles */
+:root {
+  /* Typography */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Color Scheme */
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87); /* Light text color */
+  background-color: #1a1a1a; /* Dark background */
+
+  /* Rendering Enhancements */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Link Styles */
+a {
+  font-weight: 500;
+  color: #d4af37; /* Finch Gold */
+  text-decoration: inherit;
+}
+a:hover {
+  color: #f59e0b; /* Darker Gold on Hover */
+}
+
+/* Body Styles */
+body {
+  @apply bg-darkBg text-lightText w-full min-h-screen flex flex-col;
+  margin: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Heading Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #f5f5f5; /* Very Light Text for Headings */
+}
+
+/* Remove Generic Button Styles to Prevent Conflicts */
+button {
+  /* Removed generic button styles to allow Tailwind utility classes to take precedence */
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
