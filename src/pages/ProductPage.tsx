@@ -1,3 +1,4 @@
+// src/pages/ProductPage.tsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Product, Size } from "../types";
@@ -9,6 +10,7 @@ const ProductPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedSize, setSelectedSize] = useState<Size | undefined>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -52,12 +54,21 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const productStatus =
-    !product.inStock && !product.backorder
-      ? "Out of Stock"
-      : product.inStock
-      ? "In Stock"
-      : "Backorder Available";
+  // Determine product status for display
+  const productStatus = product.inStock
+    ? "In Stock"
+    : product.backorder
+    ? "Backorder Available"
+    : "Out of Stock";
+
+  // Determine the button label and disabled state
+  const buttonLabel = product.inStock
+    ? "Add to Cart"
+    : product.backorder
+    ? "Backorder"
+    : "Unavailable";
+  const isDisabled = !product.inStock && !product.backorder;
+
   return (
     <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
       <div className="mb-10">
@@ -67,6 +78,7 @@ const ProductPage: React.FC = () => {
         </Button>
       </div>
       <div className="flex flex-col md:flex-row">
+        {/* Images Section */}
         <div className="md:w-1/2 flex flex-col items-center md:mr-10">
           <img
             src={product.images[currentImageIndex]}
@@ -90,18 +102,32 @@ const ProductPage: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Details Section */}
         <div className="md:w-1/2 flex flex-col justify-center mt-6 md:mt-0">
           <h2 className="text-3xl font-bold mb-4 text-lightText">
             {product.name}
           </h2>
           <p className="mb-4 text-lightText">{product.description}</p>
+
+          {product.allergens && (
+            <p className="mb-4 text-lightText">
+              <strong>Allergens:</strong> {product.allergens}
+            </p>
+          )}
+
           <p
             className={`mb-4 ${
-              product.inStock ? "text-green-500" : "text-yellow-500"
+              product.inStock
+                ? "text-green-500"
+                : product.backorder
+                ? "text-yellow-500"
+                : "text-red-500"
             }`}
           >
             {productStatus}
           </p>
+
           <label
             htmlFor="size"
             className="block mb-2 text-lightText font-semibold"
@@ -117,7 +143,7 @@ const ProductPage: React.FC = () => {
               );
               if (size) setSelectedSize(size);
             }}
-            className="w-full p-3 border rounded-lg bg-gray-700 text-lightText mb-6"
+            className="w-full p-3 border rounded-lg bg-gray-700 text-lightText mb-2"
           >
             {product.sizes.map((size) => (
               <option key={size.label} value={size.label}>
@@ -125,17 +151,20 @@ const ProductPage: React.FC = () => {
               </option>
             ))}
           </select>
+
+          {selectedSize && (
+            <p className="mb-6 text-lightText">
+              <strong>Estimated Size:</strong> {selectedSize.estimatedSize}
+            </p>
+          )}
+
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Button
               variant="primary"
               onClick={handleAddToCart}
-              disabled={!product?.inStock && !product?.backorder} // Disable button for non-backorderable items
+              disabled={isDisabled}
             >
-              {product.inStock
-                ? "Add to Cart"
-                : product.backorder
-                ? "Backorder"
-                : "Unavailable"}
+              {buttonLabel}
             </Button>
           </div>
         </div>

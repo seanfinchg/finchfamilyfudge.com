@@ -17,6 +17,28 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     addToCart({ ...product, size: selectedSize, quantity: 1 });
   };
 
+  // Determine product status for display
+  const productStatus = product.inStock
+    ? "In Stock"
+    : product.backorder
+    ? "Available for Backorder"
+    : "Out of Stock";
+
+  // Determine status text color
+  const statusColor = product.inStock
+    ? "text-green-500"
+    : product.backorder
+    ? "text-yellow-500"
+    : "text-red-500";
+
+  // Determine the button label and disabled state
+  const buttonLabel = product.inStock
+    ? "Add to Cart"
+    : product.backorder
+    ? "Backorder"
+    : "Unavailable";
+  const isDisabled = !product.inStock && !product.backorder;
+
   return (
     <div className="product-card border rounded-lg p-4 shadow-lg flex flex-col bg-gray-800 animate-fadeIn">
       <img
@@ -33,13 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             ? `${product.description.substring(0, 100)}...`
             : product.description}
         </p>
-        <p
-          className={`mb-4 ${
-            product.inStock ? "text-green-500" : "text-yellow-500"
-          }`}
-        >
-          {product.inStock ? "In Stock" : "Available for Backorder"}
-        </p>
+        <p className={`mb-4 ${statusColor}`}>{productStatus}</p>
         <label
           htmlFor={`size-${product.id}`}
           className="block mb-1 text-lightText"
@@ -61,8 +77,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </option>
           ))}
         </select>
-        <Button variant="primary" onClick={handleAddToCart}>
-          {product.inStock ? "Add to Cart" : "Backorder"}
+        <Button
+          variant="primary"
+          onClick={handleAddToCart}
+          disabled={isDisabled}
+        >
+          {buttonLabel}
         </Button>
         <Link to={`/products/${product.slug}`}>
           <button className="w-full px-6 py-3 rounded-lg transition-transform duration-200 focus:outline-none flex items-center justify-center bg-purple-500 text-white hover:bg-purple-700 hover:scale-105 my-2">
