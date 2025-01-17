@@ -8,9 +8,9 @@ export const products: Product[] = [
     slug: "almond-roca-chocolate-fudge",
     images: ["/images/placeholder.jpg"],
     sizes: [
-      { label: "1 Pack", price: 5, estimatedSize: "TBDoz" },
-      { label: "2 Pack", price: 10, estimatedSize: "TBDx2oz" },
-      { label: "3 Pack", price: 15, estimatedSize: "TBDx3oz" },
+      { label: "1 Pack", price: 5, estimatedSize: "4oz" },
+      { label: "2 Pack", price: 10, estimatedSize: "8oz" },
+      { label: "3 Pack", price: 15, estimatedSize: "12oz" },
     ],
     description: "Standard fudge with crumbles of almond roca in it.",
     allergens:
@@ -27,9 +27,9 @@ export const products: Product[] = [
       "/images/rum-cherry-chocolate-fudge-2.jpg",
     ],
     sizes: [
-      { label: "1 Pack", price: 5, estimatedSize: "TBDoz" },
-      { label: "2 Pack", price: 10, estimatedSize: "TBDx2oz" },
-      { label: "3 Pack", price: 15, estimatedSize: "TBDx3oz" },
+      { label: "1 Pack", price: 5, estimatedSize: "4oz" },
+      { label: "2 Pack", price: 10, estimatedSize: "8oz" },
+      { label: "3 Pack", price: 15, estimatedSize: "12oz" },
     ],
     description: "A delicious blend of rum, cherry, and chocolate flavors.",
     allergens:
@@ -46,9 +46,9 @@ export const products: Product[] = [
       "/images/butterscotch-pecan-fudge-2.jpg",
     ],
     sizes: [
-      { label: "1 Pack", price: 5, estimatedSize: "TBDoz" },
-      { label: "2 Pack", price: 10, estimatedSize: "TBDx2oz" },
-      { label: "3 Pack", price: 15, estimatedSize: "TBDx3oz" },
+      { label: "1 Pack", price: 5, estimatedSize: "4oz" },
+      { label: "2 Pack", price: 10, estimatedSize: "8oz" },
+      { label: "3 Pack", price: 15, estimatedSize: "12oz" },
     ],
     description: "Smooth butterscotch fudge for a delightful treat.",
     allergens:
@@ -65,13 +65,13 @@ export const products: Product[] = [
       "/images/peppermint-fudge-2.jpg",
     ],
     sizes: [
-      { label: "1 Pack", price: 5, estimatedSize: "TBDoz" },
-      { label: "2 Pack", price: 10, estimatedSize: "TBDx2oz" },
-      { label: "3 Pack", price: 15, estimatedSize: "TBDx3oz" },
+      { label: "1 Pack", price: 5, estimatedSize: "4oz" },
+      { label: "2 Pack", price: 10, estimatedSize: "8oz" },
+      { label: "3 Pack", price: 15, estimatedSize: "12oz" },
     ],
     description: "Refreshing peppermint fudge perfect for the holidays.",
     allergens: "May contain trace amounts of pecans, walnuts, or almonds.",
-    inStock: true,
+    inStock: false,
     backorder: true,
   },
   {
@@ -80,9 +80,9 @@ export const products: Product[] = [
     slug: "almond-roca",
     images: ["/images/placeholder.jpg"],
     sizes: [
-      { label: "1 Pack", price: 5, estimatedSize: "TBDoz" },
-      { label: "2 Pack", price: 10, estimatedSize: "TBDx2oz" },
-      { label: "3 Pack", price: 15, estimatedSize: "TBDx3oz" },
+      { label: "1 Pack", price: 5, estimatedSize: "4oz" },
+      { label: "2 Pack", price: 10, estimatedSize: "8oz" },
+      { label: "3 Pack", price: 15, estimatedSize: "12oz" },
     ],
     description: "Crunchy almond roca fudge with a smooth finish.",
     allergens:

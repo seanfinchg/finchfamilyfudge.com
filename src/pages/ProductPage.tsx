@@ -53,6 +53,13 @@ const ProductPage: React.FC = () => {
     );
   }
 
+  const productStatus =
+    !product.inStock && !product.backorder
+      ? "Out of Stock"
+      : product.inStock
+      ? "In Stock"
+      : "Backorder Available";
+
   return (
     <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
       <div className="mb-10">
@@ -95,7 +102,7 @@ const ProductPage: React.FC = () => {
               product.inStock ? "text-green-500" : "text-yellow-500"
             }`}
           >
-            {product.inStock ? "In Stock" : "Available for Backorder"}
+            {productStatus}
           </p>
           <label
             htmlFor="size"
@@ -126,9 +133,9 @@ const ProductPage: React.FC = () => {
               onClick={handleAddToCart}
               disabled={!product?.inStock && !product?.backorder} // Disable button for non-backorderable items
             >
-              {product?.inStock
+              {product.inStock
                 ? "Add to Cart"
-                : product?.backorder
+                : product.backorder
                 ? "Backorder"
                 : "Unavailable"}
             </Button>
