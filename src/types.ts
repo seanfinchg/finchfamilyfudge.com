@@ -2,6 +2,7 @@
 export interface Size {
   label: string;
   price: number;
+  estimatedSize: string; // Added estimatedSize property
 }
 
 export interface Product {
@@ -13,6 +14,7 @@ export interface Product {
   sizes: Size[];
   inStock: boolean;
   backorder?: boolean; // Added backorder property (optional)
+  allergens?: string; // Added allergens property (optional)
 }
 
 export interface CartItem extends Product {
