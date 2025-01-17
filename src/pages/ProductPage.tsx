@@ -92,6 +92,9 @@ const ProductPage: React.FC = () => {
             {product.name}
           </h2>
           <p className="mb-4 text-lightText">{product.description}</p>
+          <p className="mb-4 text-lightText">
+            <strong>Allergens:</strong> {product.allergens || "None listed"}
+          </p>
           <p
             className={`mb-4 ${
               product.inStock ? "text-green-500" : "text-yellow-500"
@@ -123,7 +126,7 @@ const ProductPage: React.FC = () => {
           >
             {product.sizes.map((size) => (
               <option key={size.label} value={size.label}>
-                {size.label} - ${size.price}
+                {size.label} - ${size.price} ({size.estimatedSize})
               </option>
             ))}
           </select>
