@@ -1,4 +1,3 @@
-// src/pages/ProductPage.tsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Product, Size } from "../types";
@@ -53,8 +52,12 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const isUnavailable = !product?.inStock && !product?.backorder;
-
+  const productStatus =
+    !product.inStock && !product.backorder
+      ? "Out of Stock"
+      : product.inStock
+      ? "In Stock"
+      : "Backorder Available";
   return (
     <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
       <div className="mb-10">
@@ -92,19 +95,12 @@ const ProductPage: React.FC = () => {
             {product.name}
           </h2>
           <p className="mb-4 text-lightText">{product.description}</p>
-          <p className="mb-4 text-lightText">
-            <strong>Allergens:</strong> {product.allergens || "None listed"}
-          </p>
           <p
             className={`mb-4 ${
               product.inStock ? "text-green-500" : "text-yellow-500"
             }`}
           >
-            {isUnavailable
-              ? "Out of Stock"
-              : product.inStock
-              ? "In Stock"
-              : "Available for Backorder"}
+            {productStatus}
           </p>
           <label
             htmlFor="size"
@@ -122,11 +118,10 @@ const ProductPage: React.FC = () => {
               if (size) setSelectedSize(size);
             }}
             className="w-full p-3 border rounded-lg bg-gray-700 text-lightText mb-6"
-            disabled={isUnavailable}
           >
             {product.sizes.map((size) => (
               <option key={size.label} value={size.label}>
-                {size.label} - ${size.price} ({size.estimatedSize})
+                {size.label} - ${size.price}
               </option>
             ))}
           </select>
@@ -134,9 +129,13 @@ const ProductPage: React.FC = () => {
             <Button
               variant="primary"
               onClick={handleAddToCart}
-              disabled={isUnavailable}
+              disabled={!product?.inStock && !product?.backorder} // Disable button for non-backorderable items
             >
-              {isUnavailable ? "Out of Stock" : "Add to Cart"}
+              {product.inStock
+                ? "Add to Cart"
+                : product.backorder
+                ? "Backorder"
+                : "Unavailable"}
             </Button>
           </div>
         </div>
