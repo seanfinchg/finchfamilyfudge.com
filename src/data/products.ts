@@ -71,7 +71,7 @@ export const products: Product[] = [
     ],
     description: "Refreshing peppermint fudge perfect for the holidays.",
     allergens: "May contain trace amounts of pecans, walnuts, or almonds.",
-    inStock: false,
+    inStock: true,
     backorder: true,
   },
   {
