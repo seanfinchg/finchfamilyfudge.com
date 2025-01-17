@@ -53,18 +53,10 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const productStatus =
-    !product.inStock && !product.backorder
-      ? "Out of Stock"
-      : product.inStock
-      ? "In Stock"
-      : "Backorder Available";
-
   return (
     <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
       <div className="mb-10">
         <Button variant="back" onClick={() => navigate("/products")}>
-          <FaArrowLeft className="mr-2" />
           Back to Products
         </Button>
       </div>
@@ -97,12 +89,8 @@ const ProductPage: React.FC = () => {
             {product.name}
           </h2>
           <p className="mb-4 text-lightText">{product.description}</p>
-          <p
-            className={`mb-4 ${
-              product.inStock ? "text-green-500" : "text-yellow-500"
-            }`}
-          >
-            {productStatus}
+          <p className="mb-4 text-lightText font-semibold">
+            Allergens: {product.allergens}
           </p>
           <label
             htmlFor="size"
@@ -123,19 +111,34 @@ const ProductPage: React.FC = () => {
           >
             {product.sizes.map((size) => (
               <option key={size.label} value={size.label}>
-                {size.label} - ${size.price}
+                {size.label} - {size.estimatedSize} - ${size.price}
               </option>
             ))}
           </select>
+          <p
+            className={`mb-4 ${
+              product.inStock
+                ? "text-green-500"
+                : product.backorder
+                ? "text-yellow-500"
+                : "text-red-500"
+            }`}
+          >
+            {product.inStock
+              ? "In Stock"
+              : product.backorder
+              ? "Available for Backorder"
+              : "Out of Stock"}
+          </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Button
               variant="primary"
               onClick={handleAddToCart}
-              disabled={!product?.inStock && !product?.backorder} // Disable button for non-backorderable items
+              disabled={!product?.inStock && !product?.backorder}
             >
-              {product.inStock
+              {product?.inStock
                 ? "Add to Cart"
-                : product.backorder
+                : product?.backorder
                 ? "Backorder"
                 : "Unavailable"}
             </Button>
