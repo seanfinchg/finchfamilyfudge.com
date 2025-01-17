@@ -53,10 +53,13 @@ const ProductPage: React.FC = () => {
     );
   }
 
+  const isUnavailable = !product?.inStock && !product?.backorder;
+
   return (
     <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
       <div className="mb-10">
         <Button variant="back" onClick={() => navigate("/products")}>
+          <FaArrowLeft className="mr-2" />
           Back to Products
         </Button>
       </div>
@@ -89,8 +92,16 @@ const ProductPage: React.FC = () => {
             {product.name}
           </h2>
           <p className="mb-4 text-lightText">{product.description}</p>
-          <p className="mb-4 text-lightText font-semibold">
-            Allergens: {product.allergens}
+          <p
+            className={`mb-4 ${
+              product.inStock ? "text-green-500" : "text-yellow-500"
+            }`}
+          >
+            {isUnavailable
+              ? "Out of Stock"
+              : product.inStock
+              ? "In Stock"
+              : "Available for Backorder"}
           </p>
           <label
             htmlFor="size"
@@ -108,39 +119,21 @@ const ProductPage: React.FC = () => {
               if (size) setSelectedSize(size);
             }}
             className="w-full p-3 border rounded-lg bg-gray-700 text-lightText mb-6"
+            disabled={isUnavailable}
           >
             {product.sizes.map((size) => (
               <option key={size.label} value={size.label}>
-                {size.label} - {size.estimatedSize} - ${size.price}
+                {size.label} - ${size.price}
               </option>
             ))}
           </select>
-          <p
-            className={`mb-4 ${
-              product.inStock
-                ? "text-green-500"
-                : product.backorder
-                ? "text-yellow-500"
-                : "text-red-500"
-            }`}
-          >
-            {product.inStock
-              ? "In Stock"
-              : product.backorder
-              ? "Available for Backorder"
-              : "Out of Stock"}
-          </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Button
               variant="primary"
               onClick={handleAddToCart}
-              disabled={!product?.inStock && !product?.backorder}
+              disabled={isUnavailable}
             >
-              {product?.inStock
-                ? "Add to Cart"
-                : product?.backorder
-                ? "Backorder"
-                : "Unavailable"}
+              {isUnavailable ? "Out of Stock" : "Add to Cart"}
             </Button>
           </div>
         </div>
