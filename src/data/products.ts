@@ -6,7 +6,10 @@ export const products: Product[] = [
     id: 1,
     name: "Almond Roca Chocolate Fudge",
     slug: "almond-roca-chocolate-fudge",
-    images: ["/images/placeholder.jpg"],
+    images: [
+      "/images/almond-roca-chocolate-fudge-1.jpg",
+      "/images/almond-roca-chocolate-fudge-2.jpg",
+    ],
     sizes: [
       { label: "1 Pack", price: 5, estimatedSize: "4oz" },
       { label: "2 Pack", price: 10, estimatedSize: "8oz" },
