@@ -18,7 +18,7 @@ export const products: Product[] = [
     description: "Standard fudge with crumbles of almond roca in it.",
     allergens:
       "Contains almonds. May contain trace amounts of pecans and walnuts.",
-    inStock: false,
+    inStock: true,
     backorder: true,
   },
   {
