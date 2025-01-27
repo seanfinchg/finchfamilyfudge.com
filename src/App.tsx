@@ -8,7 +8,7 @@ import Products from "./pages/Products";
 import ProductPage from "./pages/ProductPage";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import About from "./pages/About"; // Ensure About page is included
+import About from "./pages/About";
 import { ToastProvider } from "./context/ToastContext";
 
 const App: React.FC = () => {
@@ -22,12 +22,10 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
               <Route path="/products/:slug" element={<ProductPage />} />{" "}
-              {/* Changed from :id to :slug */}
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/about" element={<About />} />{" "}
-              {/* Added About route */}
-              {/* Add a catch-all route for 404 pages if desired */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
           <Footer />
