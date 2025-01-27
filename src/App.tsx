@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import { ToastProvider } from "./context/ToastContext";
+import { Navigate } from "react-router-dom";
 
 const App: React.FC = () => {
   return (
