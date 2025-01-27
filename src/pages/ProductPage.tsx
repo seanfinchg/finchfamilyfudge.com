@@ -5,6 +5,7 @@ import { Product, Size } from "../types";
 import { useCart } from "../context/CartContext";
 import Button from "../components/Button";
 import { FaArrowLeft } from "react-icons/fa";
+import { products } from "../data/products";
 
 const ProductPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -16,14 +17,10 @@ const ProductPage: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    import("../data/products").then((module) => {
-      const foundProduct = module.products.find(
-        (p: Product) => p.slug === slug
-      );
-      setProduct(foundProduct || null);
-      setSelectedSize(foundProduct?.sizes[0]);
-    });
-  }, [slug]);
+  const foundProduct = products.find((p: Product) => p.slug === slug);
+  setProduct(foundProduct || null);
+  setSelectedSize(foundProduct?.sizes[0]);
+}, [slug]);
 
   const handleAddToCart = () => {
     if (product && selectedSize) {
