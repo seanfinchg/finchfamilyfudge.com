@@ -21,22 +21,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const productStatus = product.inStock
     ? "In Stock"
     : product.backorder
-    ? "Available for Backorder"
-    : "Out of Stock";
+      ? "Available for Backorder"
+      : "Out of Stock";
 
   // Determine status text color
   const statusColor = product.inStock
     ? "text-green-500"
     : product.backorder
-    ? "text-yellow-500"
-    : "text-red-500";
+      ? "text-yellow-500"
+      : "text-red-500";
 
   // Determine the button label and disabled state
   const buttonLabel = product.inStock
     ? "Add to Cart"
     : product.backorder
-    ? "Backorder"
-    : "Unavailable";
+      ? "Backorder"
+      : "Unavailable";
   const isDisabled = !product.inStock && !product.backorder;
 
   return (
@@ -47,19 +47,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         className="product-card-image mb-6 rounded"
       />
       <div className="product-card-details flex flex-col flex-grow">
-        <h3 className="text-xl font-semibold mb-2 text-lightText">
-          {product.name}
-        </h3>
+        <h3 className="text-xl font-semibold mb-2 text-lightText">{product.name}</h3>
         <p className="mb-2 text-lightText">
           {product.description.length > 100
             ? `${product.description.substring(0, 100)}...`
             : product.description}
         </p>
         <p className={`mb-4 ${statusColor}`}>{productStatus}</p>
-        <label
-          htmlFor={`size-${product.id}`}
-          className="block mb-1 text-lightText"
-        >
+        <label htmlFor={`size-${product.id}`} className="block mb-1 text-lightText">
           Select Size:
         </label>
         <select
@@ -77,11 +72,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </option>
           ))}
         </select>
-        <Button
-          variant="primary"
-          onClick={handleAddToCart}
-          disabled={isDisabled}
-        >
+        <Button variant="primary" onClick={handleAddToCart} disabled={isDisabled}>
           {buttonLabel}
         </Button>
         <Link to={`/products/${product.slug}`}>

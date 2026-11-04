@@ -17,10 +17,10 @@ const ProductPage: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-  const foundProduct = products.find((p: Product) => p.slug === slug);
-  setProduct(foundProduct || null);
-  setSelectedSize(foundProduct?.sizes[0]);
-}, [slug]);
+    const foundProduct = products.find((p: Product) => p.slug === slug);
+    setProduct(foundProduct || null);
+    setSelectedSize(foundProduct?.sizes[0]);
+  }, [slug]);
 
   const handleAddToCart = () => {
     if (product && selectedSize) {
@@ -32,18 +32,14 @@ const ProductPage: React.FC = () => {
     if (!product) return;
     const totalImages = product.images.length;
     setCurrentImageIndex((prev) =>
-      direction === "prev"
-        ? (prev - 1 + totalImages) % totalImages
-        : (prev + 1) % totalImages
+      direction === "prev" ? (prev - 1 + totalImages) % totalImages : (prev + 1) % totalImages,
     );
   };
 
   if (!product) {
     return (
       <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
-        <h2 className="text-2xl font-bold mb-6 text-lightText">
-          Product Not Found
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-lightText">Product Not Found</h2>
         <Button variant="back" onClick={() => navigate("/products")}>
           Back to Products
         </Button>
@@ -55,15 +51,15 @@ const ProductPage: React.FC = () => {
   const productStatus = product.inStock
     ? "In Stock"
     : product.backorder
-    ? "Backorder Available"
-    : "Out of Stock";
+      ? "Backorder Available"
+      : "Out of Stock";
 
   // Determine the button label and disabled state
   const buttonLabel = product.inStock
     ? "Add to Cart"
     : product.backorder
-    ? "Backorder"
-    : "Unavailable";
+      ? "Backorder"
+      : "Unavailable";
   const isDisabled = !product.inStock && !product.backorder;
 
   return (
@@ -102,9 +98,7 @@ const ProductPage: React.FC = () => {
 
         {/* Details Section */}
         <div className="md:w-1/2 flex flex-col justify-center mt-6 md:mt-0">
-          <h2 className="text-3xl font-bold mb-4 text-lightText">
-            {product.name}
-          </h2>
+          <h2 className="text-3xl font-bold mb-4 text-lightText">{product.name}</h2>
           <p className="mb-4 text-lightText">{product.description}</p>
 
           {product.allergens && (
@@ -118,26 +112,21 @@ const ProductPage: React.FC = () => {
               product.inStock
                 ? "text-green-500"
                 : product.backorder
-                ? "text-yellow-500"
-                : "text-red-500"
+                  ? "text-yellow-500"
+                  : "text-red-500"
             }`}
           >
             {productStatus}
           </p>
 
-          <label
-            htmlFor="size"
-            className="block mb-2 text-lightText font-semibold"
-          >
+          <label htmlFor="size" className="block mb-2 text-lightText font-semibold">
             Select Size:
           </label>
           <select
             id="size"
             value={selectedSize?.label}
             onChange={(e) => {
-              const size = product.sizes.find(
-                (s) => s.label === e.target.value
-              );
+              const size = product.sizes.find((s) => s.label === e.target.value);
               if (size) setSelectedSize(size);
             }}
             className="w-full p-3 border rounded-lg bg-gray-700 text-lightText mb-2"
@@ -156,11 +145,7 @@ const ProductPage: React.FC = () => {
           )}
 
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Button
-              variant="primary"
-              onClick={handleAddToCart}
-              disabled={isDisabled}
-            >
+            <Button variant="primary" onClick={handleAddToCart} disabled={isDisabled}>
               {buttonLabel}
             </Button>
           </div>

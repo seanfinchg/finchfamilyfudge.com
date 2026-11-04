@@ -25,7 +25,7 @@ const Checkout: React.FC = () => {
     const isPhoneNumber = /^\d{10}$/.test(contactInfo);
     if (!isPhoneNumber && !/^@[a-zA-Z0-9._]+$/.test(contactInfo)) {
       setError(
-        "Please enter a valid Instagram handle (starting with @) or a 10-digit phone number."
+        "Please enter a valid Instagram handle (starting with @) or a 10-digit phone number.",
       );
       return;
     }
@@ -38,11 +38,9 @@ const Checkout: React.FC = () => {
     const orderSummary = cartItems
       .map((item) => `${item.quantity}x ${item.name} (${item.size.label})`)
       .join(", ");
-    const encodedNote = encodeURIComponent(
-      `Order: ${orderSummary}. Contact: ${contactInfo}`
-    );
+    const encodedNote = encodeURIComponent(`Order: ${orderSummary}. Contact: ${contactInfo}`);
     const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
-      2
+      2,
     )}&note=${encodedNote}`;
     window.open(venmoLink, "_blank");
     setShowConfirmModal(false);
@@ -59,10 +57,7 @@ const Checkout: React.FC = () => {
       {cartItems.length === 0 ? (
         <p className="text-lightText">
           Your cart is empty.{" "}
-          <button
-            onClick={() => navigate("/products")}
-            className="text-finchGold hover:underline"
-          >
+          <button onClick={() => navigate("/products")} className="text-finchGold hover:underline">
             Shop now
           </button>
           .
@@ -82,25 +77,18 @@ const Checkout: React.FC = () => {
                     className="w-24 h-24 object-contain rounded"
                   />
                   <div className="flex flex-col space-y-2">
-                    <h3 className="text-xl font-semibold text-lightText">
-                      {item.name}
-                    </h3>
+                    <h3 className="text-xl font-semibold text-lightText">{item.name}</h3>
                     <p className="text-lightText">
                       {item.size.label} - ${item.size.price}
                     </p>
-                    <p className="text-lightText font-bold">
-                      Quantity: {item.quantity}
-                    </p>
+                    <p className="text-lightText font-bold">Quantity: {item.quantity}</p>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
           <div className="mt-8">
-            <label
-              htmlFor="contact"
-              className="block text-lightText font-semibold mb-2"
-            >
+            <label htmlFor="contact" className="block text-lightText font-semibold mb-2">
               Instagram Handle or Phone Number (Required)
             </label>
             <input
@@ -129,16 +117,13 @@ const Checkout: React.FC = () => {
           {showConfirmModal && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
               <div className="bg-gray-800 p-6 rounded-lg w-11/12 md:w-1/3">
-                <h3 className="text-xl font-semibold mb-4 text-lightText">
-                  Confirm Venmo Payment
-                </h3>
+                <h3 className="text-xl font-semibold mb-4 text-lightText">Confirm Venmo Payment</h3>
                 <p className="text-lightText mb-6">
-                  Please confirm that, if you are on a mobile device, you will
-                  manually enter your order details{" "}
-                  <strong>and your Instagram handle or phone number</strong> in
-                  the Venmo payment message. If you do not do this, your order
-                  will be refunded. If providing a phone number, expect contact
-                  from a <strong>714 area code</strong>. Do you want to proceed?
+                  Please confirm that, if you are on a mobile device, you will manually enter your
+                  order details <strong>and your Instagram handle or phone number</strong> in the
+                  Venmo payment message. If you do not do this, your order will be refunded. If
+                  providing a phone number, expect contact from a <strong>714 area code</strong>. Do
+                  you want to proceed?
                 </p>
                 <div className="flex justify-end space-x-4">
                   <Button variant="red" onClick={handleCancel}>
@@ -153,20 +138,16 @@ const Checkout: React.FC = () => {
           )}
           <div className="mt-6">
             <p className="font-bold text-red-500">
-              *Your order will not be processed unless the payment successfully
-              goes through on Venmo.
+              *Your order will not be processed unless the payment successfully goes through on
+              Venmo.
             </p>
             <p className="font-bold text-red-500 mt-2">
-              *If you are on mobile, please make sure you manually input the
-              products you are purchasing{" "}
-              <strong>and your Instagram handle or phone number</strong> in the
-              "Message" section of the Venmo payment. If providing a phone
-              number, expect contact from a <strong>714 area code</strong>.
-              Otherwise, the order will be refunded.
+              *If you are on mobile, please make sure you manually input the products you are
+              purchasing <strong>and your Instagram handle or phone number</strong> in the "Message"
+              section of the Venmo payment. If providing a phone number, expect contact from a{" "}
+              <strong>714 area code</strong>. Otherwise, the order will be refunded.
             </p>
-            <p className="mt-2 text-lightText">
-              Cash is also accepted if purchased in person.
-            </p>
+            <p className="mt-2 text-lightText">Cash is also accepted if purchased in person.</p>
           </div>
         </div>
       )}

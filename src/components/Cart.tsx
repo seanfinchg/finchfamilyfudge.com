@@ -7,8 +7,7 @@ import { logoVenmo } from "ionicons/icons";
 import Button from "./Button";
 
 const Cart: React.FC = () => {
-  const { cartItems, removeFromCart, updateQuantity, totalPrice, clearCart } =
-    useCart();
+  const { cartItems, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -31,7 +30,7 @@ const Cart: React.FC = () => {
   const encodedNote = encodeURIComponent(`Order: ${orderSummary}`);
 
   const venmoLink = `https://venmo.com/StraightUpSean?txn=pay&amount=${totalPrice.toFixed(
-    2
+    2,
   )}&note=${encodedNote}`;
 
   const handlePayWithVenmo = () => {
@@ -109,12 +108,10 @@ const Cart: React.FC = () => {
           {/* Additional Information */}
           <div className="mt-6 text-lightText">
             <p>
-              *Your order will not be processed unless the payment successfully
-              goes through on Venmo.
+              *Your order will not be processed unless the payment successfully goes through on
+              Venmo.
             </p>
-            <p className="mt-2">
-              Cash is also accepted if purchased in person.
-            </p>
+            <p className="mt-2">Cash is also accepted if purchased in person.</p>
           </div>
         </div>
       )}
