@@ -43,6 +43,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook colocated with its provider
 export const useToast = (): ToastContextType => {
   const context = useContext(ToastContext);
   if (!context) {

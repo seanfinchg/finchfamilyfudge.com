@@ -57,7 +57,12 @@ const Checkout: React.FC = () => {
       {cartItems.length === 0 ? (
         <p className="text-lightText">
           Your cart is empty.{" "}
-          <button onClick={() => navigate("/products")} className="text-finchGold hover:underline">
+          <button
+            onClick={() => {
+              navigate("/products");
+            }}
+            className="text-finchGold hover:underline"
+          >
             Shop now
           </button>
           .
@@ -65,7 +70,7 @@ const Checkout: React.FC = () => {
       ) : (
         <div>
           <ul className="space-y-6">
-            {cartItems.map((item, index) => (
+            {cartItems.map((item) => (
               <li
                 key={`${item.id}-${item.size.label}`}
                 className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded space-y-4 sm:space-y-0"
@@ -95,7 +100,9 @@ const Checkout: React.FC = () => {
               id="contact"
               type="text"
               value={contactInfo}
-              onChange={(e) => setContactInfo(e.target.value.trim())}
+              onChange={(e) => {
+                setContactInfo(e.target.value.trim());
+              }}
               placeholder="e.g., @username or 1234567890"
               className="w-full p-3 border rounded-lg bg-gray-700 text-lightText"
             />
@@ -106,7 +113,12 @@ const Checkout: React.FC = () => {
               Total: ${totalPrice.toFixed(2)}
             </span>
             <div className="flex space-x-4 mt-4 sm:mt-0">
-              <Button variant="red" onClick={() => navigate("/cart")}>
+              <Button
+                variant="red"
+                onClick={() => {
+                  navigate("/cart");
+                }}
+              >
                 Back to Cart
               </Button>
               <Button variant="venmo" onClick={handlePayWithVenmo}>

@@ -57,13 +57,17 @@ const Cart: React.FC = () => {
                     type="number"
                     min="1"
                     value={item.quantity}
-                    onChange={(e) => updateQuantity(index, parseInt(e.target.value) || 1)}
+                    onChange={(e) => {
+                      updateQuantity(index, parseInt(e.target.value) || 1);
+                    }}
                     className="w-16 p-2 border rounded bg-gray-700 text-lightText"
                     disabled={!item.inStock}
                   />
                   <Button
                     variant="red" // Red for Remove button
-                    onClick={() => removeFromCart(index)}
+                    onClick={() => {
+                      removeFromCart(index);
+                    }}
                   >
                     Remove
                   </Button>
@@ -79,7 +83,12 @@ const Cart: React.FC = () => {
               <Button variant="red" onClick={handleClearCart}>
                 Clear Cart
               </Button>
-              <Button variant="primary" onClick={() => navigate("/checkout")}>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  navigate("/checkout");
+                }}
+              >
                 Checkout
               </Button>
             </div>

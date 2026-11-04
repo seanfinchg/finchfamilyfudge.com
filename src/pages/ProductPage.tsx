@@ -40,7 +40,12 @@ const ProductPage: React.FC = () => {
     return (
       <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
         <h2 className="text-2xl font-bold mb-6 text-lightText">Product Not Found</h2>
-        <Button variant="back" onClick={() => navigate("/products")}>
+        <Button
+          variant="back"
+          onClick={() => {
+            navigate("/products");
+          }}
+        >
           Back to Products
         </Button>
       </div>
@@ -65,7 +70,12 @@ const ProductPage: React.FC = () => {
   return (
     <div className="container mx-auto p-6 animate-fadeIn flex flex-col min-h-screen">
       <div className="mb-10">
-        <Button variant="back" onClick={() => navigate("/products")}>
+        <Button
+          variant="back"
+          onClick={() => {
+            navigate("/products");
+          }}
+        >
           <FaArrowLeft className="mr-2" />
           Back to Products
         </Button>
@@ -81,13 +91,17 @@ const ProductPage: React.FC = () => {
           {product.images.length > 1 && (
             <div className="flex space-x-4 mt-4">
               <button
-                onClick={() => handleImageChange("prev")}
+                onClick={() => {
+                  handleImageChange("prev");
+                }}
                 className="p-2 bg-gray-700 text-white rounded hover:bg-gray-900"
               >
                 Previous
               </button>
               <button
-                onClick={() => handleImageChange("next")}
+                onClick={() => {
+                  handleImageChange("next");
+                }}
                 className="p-2 bg-gray-700 text-white rounded hover:bg-gray-900"
               >
                 Next

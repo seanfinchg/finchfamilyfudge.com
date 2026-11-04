@@ -1,7 +1,7 @@
 // src/components/Button.tsx
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import { link, logoVenmo } from "ionicons/icons";
+import { logoVenmo } from "ionicons/icons";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;

@@ -7,7 +7,7 @@ import { logoVenmo } from "ionicons/icons";
 import Button from "./Button";
 
 const Cart: React.FC = () => {
-  const { cartItems, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
+  const { cartItems, removeFromCart, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -76,7 +76,9 @@ const Cart: React.FC = () => {
                 <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
                   <Button
                     variant="red" // Red variant for Remove button
-                    onClick={() => removeFromCart(index)}
+                    onClick={() => {
+                      removeFromCart(index);
+                    }}
                   >
                     Remove
                   </Button>

@@ -51,28 +51,36 @@ const Navbar: React.FC = () => {
           <Link
             to="/"
             className="block px-4 py-2 text-lightText hover:bg-gray-700"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             Home
           </Link>
           <Link
             to="/products"
             className="block px-4 py-2 text-lightText hover:bg-gray-700"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             Products
           </Link>
           <Link
             to="/about"
             className="block px-4 py-2 text-lightText hover:bg-gray-700"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             About
           </Link>
           <Link
             to="/cart"
             className="block px-4 py-2 text-lightText hover:bg-gray-700 flex justify-between items-center"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             Cart
             {itemCount > 0 && (
