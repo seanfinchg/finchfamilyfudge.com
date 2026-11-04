@@ -32,10 +32,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (existingIndex !== -1) {
       // Update quantity of existing item
       const updatedCart = [...cartItems];
-      updatedCart[existingIndex].quantity += product.quantity;
+      const existing = updatedCart[existingIndex];
+      if (!existing) return;
+      existing.quantity += product.quantity;
       setCartItems(updatedCart);
 
-      const updatedQuantity = updatedCart[existingIndex].quantity;
+      const updatedQuantity = existing.quantity;
       showToast(
         `Increased quantity of ${product.name} (${product.size.label}). Total for this item: ${updatedQuantity}`,
       );
@@ -60,7 +62,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const updateQuantity = (index: number, quantity: number) => {
     if (quantity < 1) return;
     const updatedCart = [...cartItems];
-    updatedCart[index].quantity = quantity;
+    const item = updatedCart[index];
+    if (!item) return;
+    item.quantity = quantity;
     setCartItems(updatedCart);
     showToast(`Updated quantity.`);
   };

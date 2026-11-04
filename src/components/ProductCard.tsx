@@ -11,9 +11,10 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState<Size>(product.sizes[0]);
+  const [selectedSize, setSelectedSize] = useState<Size | undefined>(product.sizes[0]);
 
   const handleAddToCart = () => {
+    if (!selectedSize) return;
     addToCart({ ...product, size: selectedSize, quantity: 1 });
   };
 
@@ -59,7 +60,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </label>
         <select
           id={`size-${product.id}`}
-          value={selectedSize.label}
+          value={selectedSize?.label ?? ""}
           onChange={(e) => {
             const size = product.sizes.find((s) => s.label === e.target.value);
             if (size) setSelectedSize(size);
