@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Product, Size } from "../types";
 import { useCart } from "../context/CartContext";
 import Button from "./Button";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface ProductCardProps {
   product: Product;

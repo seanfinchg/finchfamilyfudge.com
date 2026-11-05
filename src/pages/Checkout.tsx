@@ -1,7 +1,7 @@
 // src/pages/Checkout.tsx
 import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Button from "../components/Button";
 
 const Checkout: React.FC = () => {
@@ -48,7 +48,7 @@ const Checkout: React.FC = () => {
 
   const handleCancel = () => {
     setShowConfirmModal(false);
-    navigate("/cart");
+    void navigate("/cart");
   };
 
   return (
@@ -59,7 +59,7 @@ const Checkout: React.FC = () => {
           Your cart is empty.{" "}
           <button
             onClick={() => {
-              navigate("/products");
+              void navigate("/products");
             }}
             className="text-finchGold hover:underline"
           >
@@ -116,7 +116,7 @@ const Checkout: React.FC = () => {
               <Button
                 variant="red"
                 onClick={() => {
-                  navigate("/cart");
+                  void navigate("/cart");
                 }}
               >
                 Back to Cart

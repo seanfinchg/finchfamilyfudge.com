@@ -1,6 +1,6 @@
 // src/pages/ProductPage.tsx
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { Product, Size } from "../types";
 import { useCart } from "../context/CartContext";
 import Button from "../components/Button";
@@ -19,7 +19,7 @@ const ProductPage: React.FC = () => {
         <Button
           variant="back"
           onClick={() => {
-            navigate("/products");
+            void navigate("/products");
           }}
         >
           Back to Products
@@ -72,7 +72,7 @@ const ProductDetails: React.FC<{ product: Product }> = ({ product }) => {
         <Button
           variant="back"
           onClick={() => {
-            navigate("/products");
+            void navigate("/products");
           }}
         >
           <FaArrowLeft className="mr-2" />

@@ -1,6 +1,6 @@
 // src/components/Navbar.tsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useCart } from "../context/CartContext";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 

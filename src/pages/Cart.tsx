@@ -1,7 +1,7 @@
 // src/pages/Cart.tsx
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import Button from "../components/Button";
 
 const Cart: React.FC = () => {
@@ -86,7 +86,7 @@ const Cart: React.FC = () => {
               <Button
                 variant="primary"
                 onClick={() => {
-                  navigate("/checkout");
+                  void navigate("/checkout");
                 }}
               >
                 Checkout
