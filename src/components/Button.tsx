@@ -1,7 +1,6 @@
 // src/components/Button.tsx
 import React from "react";
-import { IonIcon } from "@ionic/react";
-import { logoVenmo } from "ionicons/icons";
+import { IoLogoVenmo } from "react-icons/io5";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -30,10 +29,10 @@ const Button: React.FC<ButtonProps> = ({ children, variant = "primary", ...props
 
   return (
     <button
-      className={`${variantClass} px-6 py-3 rounded-lg transition-transform duration-200 focus:outline-none flex items-center justify-center`}
+      className={`${variantClass} px-6 py-3 rounded-lg transition-transform duration-200 focus:outline-hidden flex items-center justify-center`}
       {...props}
     >
-      {variant === "venmo" && <IonIcon icon={logoVenmo} className="mr-2 w-5 h-5" />}
+      {variant === "venmo" && <IoLogoVenmo className="mr-2 w-5 h-5" />}
       {children}
     </button>
   );

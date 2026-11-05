@@ -1,8 +1,8 @@
 // src/pages/ProductPage.tsx
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Product, Size } from "../types";
-import { useCart } from "../context/CartContext";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router";
+import type { Product, Size } from "../types";
+import { useCart } from "../context/cart";
 import Button from "../components/Button";
 import { FaArrowLeft } from "react-icons/fa";
 import { products } from "../data/products";
@@ -10,31 +10,7 @@ import { products } from "../data/products";
 const ProductPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
-
-  const [product, setProduct] = useState<Product | null>(null);
-  const [selectedSize, setSelectedSize] = useState<Size | undefined>();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const foundProduct = products.find((p: Product) => p.slug === slug);
-    setProduct(foundProduct || null);
-    setSelectedSize(foundProduct?.sizes[0]);
-  }, [slug]);
-
-  const handleAddToCart = () => {
-    if (product && selectedSize) {
-      addToCart({ ...product, size: selectedSize, quantity: 1 });
-    }
-  };
-
-  const handleImageChange = (direction: "prev" | "next") => {
-    if (!product) return;
-    const totalImages = product.images.length;
-    setCurrentImageIndex((prev) =>
-      direction === "prev" ? (prev - 1 + totalImages) % totalImages : (prev + 1) % totalImages,
-    );
-  };
+  const product = products.find((p) => p.slug === slug);
 
   if (!product) {
     return (
@@ -43,7 +19,7 @@ const ProductPage: React.FC = () => {
         <Button
           variant="back"
           onClick={() => {
-            navigate("/products");
+            void navigate("/products");
           }}
         >
           Back to Products
@@ -51,6 +27,29 @@ const ProductPage: React.FC = () => {
       </div>
     );
   }
+
+  // Keyed by slug so size and image selection reset when the product changes.
+  return <ProductDetails key={product.slug} product={product} />;
+};
+
+const ProductDetails: React.FC<{ product: Product }> = ({ product }) => {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [selectedSize, setSelectedSize] = useState<Size | undefined>(product.sizes[0]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleAddToCart = () => {
+    if (selectedSize) {
+      addToCart({ ...product, size: selectedSize, quantity: 1 });
+    }
+  };
+
+  const handleImageChange = (direction: "prev" | "next") => {
+    const totalImages = product.images.length;
+    setCurrentImageIndex((prev) =>
+      direction === "prev" ? (prev - 1 + totalImages) % totalImages : (prev + 1) % totalImages,
+    );
+  };
 
   // Determine product status for display
   const productStatus = product.inStock
@@ -73,7 +72,7 @@ const ProductPage: React.FC = () => {
         <Button
           variant="back"
           onClick={() => {
-            navigate("/products");
+            void navigate("/products");
           }}
         >
           <FaArrowLeft className="mr-2" />
@@ -94,7 +93,7 @@ const ProductPage: React.FC = () => {
                 onClick={() => {
                   handleImageChange("prev");
                 }}
-                className="p-2 bg-gray-700 text-white rounded hover:bg-gray-900"
+                className="p-2 bg-gray-700 text-white rounded-sm hover:bg-gray-900"
               >
                 Previous
               </button>
@@ -102,7 +101,7 @@ const ProductPage: React.FC = () => {
                 onClick={() => {
                   handleImageChange("next");
                 }}
-                className="p-2 bg-gray-700 text-white rounded hover:bg-gray-900"
+                className="p-2 bg-gray-700 text-white rounded-sm hover:bg-gray-900"
               >
                 Next
               </button>

@@ -1,7 +1,7 @@
 // src/components/Navbar.tsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { Link } from "react-router";
+import { useCart } from "../context/cart";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
       </div>
       {/* Mobile Menu Button */}
       <div className="md:hidden flex items-center">
-        <button onClick={toggleMobileMenu} className="text-lightText focus:outline-none">
+        <button onClick={toggleMobileMenu} className="text-lightText focus:outline-hidden">
           {isMobileMenuOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
         </button>
       </div>

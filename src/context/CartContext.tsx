@@ -1,18 +1,8 @@
 // src/context/CartContext.tsx
-import React, { createContext, useContext, useState } from "react";
-import { CartItem } from "../types";
-import { useToast } from "./ToastContext";
-
-interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (product: CartItem) => void;
-  removeFromCart: (index: number) => void;
-  updateQuantity: (index: number, quantity: number) => void;
-  totalPrice: number;
-  clearCart: () => void;
-}
-
-const CartContext = createContext<CartContextType | undefined>(undefined);
+import React, { useState } from "react";
+import type { CartItem } from "../types";
+import { CartContext } from "./cart";
+import { useToast } from "./toast";
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -90,13 +80,4 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       {children}
     </CartContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components -- hook colocated with its provider
-export const useCart = (): CartContextType => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
-  return context;
 };
