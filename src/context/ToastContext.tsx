@@ -1,6 +1,5 @@
 // src/context/ToastContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 interface Toast {
   id: string;
@@ -17,7 +16,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const showToast = (message: string) => {
-    const id = uuidv4(); // Generate a unique ID for each toast
+    const id = crypto.randomUUID(); // Generate a unique ID for each toast
     setToasts((prev) => [...prev, { id, message }]);
 
     // Automatically remove the toast after 3 seconds
