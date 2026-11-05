@@ -1,30 +1,27 @@
 import js from "@eslint/js";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
-  { ignores: ["dist", "*.config.js", "*.config.ts"] },
-  {
-    extends: [js.configs.recommended, ...tseslint.configs.strictTypeChecked],
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
-    rules: {
-      "@typescript-eslint/restrict-template-expressions": ["error", { allowNumber: true }],
-      ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+export default defineConfig(globalIgnores(["dist", "*.config.js", "*.config.ts"]), {
+  files: ["**/*.{ts,tsx}"],
+  extends: [
+    js.configs.recommended,
+    tseslint.configs.strictTypeChecked,
+    reactHooks.configs.flat.recommended,
+    reactRefresh.configs.vite,
+  ],
+  languageOptions: {
+    ecmaVersion: 2022,
+    globals: globals.browser,
+    parserOptions: {
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
     },
   },
-);
+  rules: {
+    "@typescript-eslint/restrict-template-expressions": ["error", { allowNumber: true }],
+  },
+});
