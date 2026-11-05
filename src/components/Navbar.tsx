@@ -1,7 +1,7 @@
 // src/components/Navbar.tsx
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/cart";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar: React.FC = () => {

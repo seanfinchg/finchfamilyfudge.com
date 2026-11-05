@@ -1,16 +1,11 @@
 // src/context/ToastContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { useState, type ReactNode } from "react";
+import { ToastContext } from "./toast";
 
 interface Toast {
   id: string;
   message: string;
 }
-
-interface ToastContextType {
-  showToast: (message: string) => void;
-}
-
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -40,13 +35,4 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       </div>
     </ToastContext.Provider>
   );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components -- hook colocated with its provider
-export const useToast = (): ToastContextType => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
-  }
-  return context;
 };

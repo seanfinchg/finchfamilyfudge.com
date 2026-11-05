@@ -9,35 +9,32 @@ import ProductPage from "./pages/ProductPage";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import About from "./pages/About";
-import { ToastProvider } from "./context/ToastContext";
 
 const App: React.FC = () => {
   return (
-    <ToastProvider>
-      <Router>
-        <div className="flex flex-col min-h-screen bg-darkBg text-lightText">
-          <Navbar />
-          <main className="grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:slug" element={<ProductPage />} />
-              {/* Manually defined routes for each product */}
-              <Route path="/products/almond-roca-chocolate-fudge" element={<ProductPage />} />
-              <Route path="/products/rum-cherry-chocolate-fudge" element={<ProductPage />} />
-              <Route path="/products/butterscotch-pecan-fudge" element={<ProductPage />} />
-              <Route path="/products/peppermint-fudge" element={<ProductPage />} />
-              <Route path="/products/almond-roca" element={<ProductPage />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/about" element={<About />} />{" "}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </ToastProvider>
+    <Router>
+      <div className="flex flex-col min-h-screen bg-darkBg text-lightText">
+        <Navbar />
+        <main className="grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:slug" element={<ProductPage />} />
+            {/* Manually defined routes for each product */}
+            <Route path="/products/almond-roca-chocolate-fudge" element={<ProductPage />} />
+            <Route path="/products/rum-cherry-chocolate-fudge" element={<ProductPage />} />
+            <Route path="/products/butterscotch-pecan-fudge" element={<ProductPage />} />
+            <Route path="/products/peppermint-fudge" element={<ProductPage />} />
+            <Route path="/products/almond-roca" element={<ProductPage />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/about" element={<About />} />{" "}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 

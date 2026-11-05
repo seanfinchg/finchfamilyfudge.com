@@ -1,7 +1,7 @@
 // src/components/ProductCard.tsx
 import React, { useState } from "react";
-import { Product, Size } from "../types";
-import { useCart } from "../context/CartContext";
+import type { Product, Size } from "../types";
+import { useCart } from "../context/cart";
 import Button from "./Button";
 import { Link } from "react-router";
 
@@ -41,13 +41,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const isDisabled = !product.inStock && !product.backorder;
 
   return (
-    <div className="product-card border rounded-lg p-4 shadow-lg flex flex-col bg-gray-800 animate-fadeIn">
+    <div className="border rounded-lg p-4 shadow-lg flex flex-col bg-gray-800 animate-fadeIn">
       <img
         src={product.images[0]} // Use only the first image here
         alt={product.name}
-        className="product-card-image mb-6 rounded-sm"
+        className="mb-6 rounded-sm"
       />
-      <div className="product-card-details flex flex-col grow">
+      <div className="flex flex-col grow">
         <h3 className="text-xl font-semibold mb-2 text-lightText">{product.name}</h3>
         <p className="mb-2 text-lightText">
           {product.description.length > 100

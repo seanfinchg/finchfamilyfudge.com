@@ -1,8 +1,8 @@
 // src/pages/ProductPage.tsx
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import { Product, Size } from "../types";
-import { useCart } from "../context/CartContext";
+import type { Product, Size } from "../types";
+import { useCart } from "../context/cart";
 import Button from "../components/Button";
 import { FaArrowLeft } from "react-icons/fa";
 import { products } from "../data/products";

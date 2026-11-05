@@ -1,6 +1,6 @@
 // src/pages/Cart.tsx
 import React, { useEffect } from "react";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/cart";
 import { Link, useNavigate } from "react-router";
 import Button from "../components/Button";
 
