@@ -5,8 +5,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "./", // Ensures proper asset paths
+  // Absolute asset paths: with "./", deep links such as /products/<slug> asked for
+  // /products/assets/*.js, got index.html back from the SPA redirect and rendered blank.
+  base: "/",
   build: {
-    outDir: "dist", // Ensures the build output is in the 'dist' folder
+    outDir: "dist",
   },
 });
