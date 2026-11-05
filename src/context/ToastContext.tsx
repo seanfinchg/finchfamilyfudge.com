@@ -13,9 +13,7 @@ interface ToastContextType {
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const showToast = (message: string) => {
@@ -45,6 +43,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook colocated with its provider
 export const useToast = (): ToastContextType => {
   const context = useContext(ToastContext);
   if (!context) {

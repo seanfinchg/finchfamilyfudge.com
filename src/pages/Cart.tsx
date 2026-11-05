@@ -9,8 +9,7 @@ const Cart: React.FC = () => {
     document.title = "Finch Family Fudge | Cart";
   }, []);
 
-  const { cartItems, removeFromCart, updateQuantity, totalPrice, clearCart } =
-    useCart();
+  const { cartItems, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
   const handleClearCart = () => {
@@ -46,15 +45,11 @@ const Cart: React.FC = () => {
                     className="w-24 h-24 object-cover rounded"
                   />
                   <div className="flex flex-col space-y-2">
-                    <h3 className="text-xl font-semibold text-lightText">
-                      {item.name}
-                    </h3>
+                    <h3 className="text-xl font-semibold text-lightText">{item.name}</h3>
                     <p className="text-lightText">
                       {item.size.label} - ${item.size.price}
                     </p>
-                    <p className="text-lightText">
-                      {item.inStock ? "In Stock" : "Backordered"}
-                    </p>
+                    <p className="text-lightText">{item.inStock ? "In Stock" : "Backordered"}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -62,15 +57,17 @@ const Cart: React.FC = () => {
                     type="number"
                     min="1"
                     value={item.quantity}
-                    onChange={(e) =>
-                      updateQuantity(index, parseInt(e.target.value) || 1)
-                    }
+                    onChange={(e) => {
+                      updateQuantity(index, parseInt(e.target.value) || 1);
+                    }}
                     className="w-16 p-2 border rounded bg-gray-700 text-lightText"
                     disabled={!item.inStock}
                   />
                   <Button
                     variant="red" // Red for Remove button
-                    onClick={() => removeFromCart(index)}
+                    onClick={() => {
+                      removeFromCart(index);
+                    }}
                   >
                     Remove
                   </Button>
@@ -86,7 +83,12 @@ const Cart: React.FC = () => {
               <Button variant="red" onClick={handleClearCart}>
                 Clear Cart
               </Button>
-              <Button variant="primary" onClick={() => navigate("/checkout")}>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  navigate("/checkout");
+                }}
+              >
                 Checkout
               </Button>
             </div>
@@ -94,29 +96,26 @@ const Cart: React.FC = () => {
           {hasBackorderedItems && (
             <div className="mt-6 p-4 bg-yellow-200 rounded-lg">
               <p className="text-yellow-800 font-semibold">
-                Note: Some items in your cart are backordered. Delivery for
-                these items may be delayed.
+                Note: Some items in your cart are backordered. Delivery for these items may be
+                delayed.
               </p>
             </div>
           )}
           <div>
             <p className="my-3 font-bold text-red-500">
-              *Your order will not be processed unless the payment successfully
-              goes through on Venmo.
+              *Your order will not be processed unless the payment successfully goes through on
+              Venmo.
             </p>
             <p className="my-3 font-bold text-red-500">
-              *If you are on mobile, please make sure you manually input the
-              products you are purchasing{" "}
-              <span className="underline">and your Instagram handle</span> (or
-              your phone number if you don’t have Instagram) in the "Message"
-              section of the Venmo payment. If providing a phone number, expect
-              contact from a <span className="underline">714 area code</span>.
-              Otherwise, the order will be refunded.
+              *If you are on mobile, please make sure you manually input the products you are
+              purchasing <span className="underline">and your Instagram handle</span> (or your phone
+              number if you don’t have Instagram) in the "Message" section of the Venmo payment. If
+              providing a phone number, expect contact from a{" "}
+              <span className="underline">714 area code</span>. Otherwise, the order will be
+              refunded.
             </p>
 
-            <p className="my-3 text-lightText">
-              Cash is also accepted if purchased in person.
-            </p>
+            <p className="my-3 text-lightText">Cash is also accepted if purchased in person.</p>
           </div>
         </div>
       )}

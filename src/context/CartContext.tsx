@@ -14,34 +14,32 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const { showToast } = useToast();
 
   const addToCart = (product: CartItem) => {
     // Prevent adding items that are out of stock and not backorderable
     if (!product.inStock && !product.backorder) {
-      showToast(
-        `${product.name} is currently out of stock and cannot be added to your cart.`
-      );
+      showToast(`${product.name} is currently out of stock and cannot be added to your cart.`);
       return;
     }
 
     const existingIndex = cartItems.findIndex(
-      (item) => item.id === product.id && item.size.label === product.size.label
+      (item) => item.id === product.id && item.size.label === product.size.label,
     );
 
     if (existingIndex !== -1) {
       // Update quantity of existing item
       const updatedCart = [...cartItems];
-      updatedCart[existingIndex].quantity += product.quantity;
+      const existing = updatedCart[existingIndex];
+      if (!existing) return;
+      existing.quantity += product.quantity;
       setCartItems(updatedCart);
 
-      const updatedQuantity = updatedCart[existingIndex].quantity;
+      const updatedQuantity = existing.quantity;
       showToast(
-        `Increased quantity of ${product.name} (${product.size.label}). Total for this item: ${updatedQuantity}`
+        `Increased quantity of ${product.name} (${product.size.label}). Total for this item: ${updatedQuantity}`,
       );
     } else {
       // Add new item to the cart
@@ -49,7 +47,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       setCartItems(newCart);
 
       showToast(
-        `${product.name} (${product.size.label}) added to your cart! Total for this item: ${product.quantity}`
+        `${product.name} (${product.size.label}) added to your cart! Total for this item: ${product.quantity}`,
       );
     }
   };
@@ -64,7 +62,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateQuantity = (index: number, quantity: number) => {
     if (quantity < 1) return;
     const updatedCart = [...cartItems];
-    updatedCart[index].quantity = quantity;
+    const item = updatedCart[index];
+    if (!item) return;
+    item.quantity = quantity;
     setCartItems(updatedCart);
     showToast(`Updated quantity.`);
   };
@@ -74,10 +74,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     showToast("Cart cleared.");
   };
 
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.size.price * item.quantity,
-    0
-  );
+  const totalPrice = cartItems.reduce((total, item) => total + item.size.price * item.quantity, 0);
 
   return (
     <CartContext.Provider
@@ -95,6 +92,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook colocated with its provider
 export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
   if (!context) {

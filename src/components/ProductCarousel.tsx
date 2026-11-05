@@ -5,13 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const ProductCarousel = ({ images }: { images: string[] }) => (
-  <Slider
-    dots={true}
-    infinite={true}
-    speed={500}
-    slidesToShow={1}
-    slidesToScroll={1}
-  >
+  <Slider dots={true} infinite={true} speed={500} slidesToShow={1} slidesToScroll={1}>
     {images.map((src, index) => (
       <div key={index}>
         <img

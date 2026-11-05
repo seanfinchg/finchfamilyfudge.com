@@ -10,12 +10,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="container mx-auto my-16 p-4 animate-fadeIn flex flex-col items-center text-center">
-      <h1 className="text-4xl font-bold mb-4 text-lightText">
-        Welcome to Finch Family Fudge
-      </h1>
+      <h1 className="text-4xl font-bold mb-4 text-lightText">Welcome to Finch Family Fudge</h1>
       <p className="mb-6 text-lightText">
-        Indulge in our delicious, handcrafted fudge made with love and the
-        finest ingredients.
+        Indulge in our delicious, handcrafted fudge made with love and the finest ingredients.
       </p>
       <Link to="/products">
         <Button variant="primary">Browse Products</Button>
