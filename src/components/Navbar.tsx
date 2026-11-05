@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
       </div>
       {/* Mobile Menu Button */}
       <div className="md:hidden flex items-center">
-        <button onClick={toggleMobileMenu} className="text-lightText focus:outline-none">
+        <button onClick={toggleMobileMenu} className="text-lightText focus:outline-hidden">
           {isMobileMenuOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
         </button>
       </div>

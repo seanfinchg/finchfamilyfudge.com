@@ -36,13 +36,13 @@ const Cart: React.FC = () => {
             {cartItems.map((item, index) => (
               <li
                 key={`${item.id}-${item.size.label}`}
-                className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded space-y-4 sm:space-y-0"
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded-sm space-y-4 sm:space-y-0"
               >
                 <div className="flex items-center space-x-6">
                   <img
                     src={item.images[0]} // Show only the first image
                     alt={item.name}
-                    className="w-24 h-24 object-cover rounded"
+                    className="w-24 h-24 object-cover rounded-sm"
                   />
                   <div className="flex flex-col space-y-2">
                     <h3 className="text-xl font-semibold text-lightText">{item.name}</h3>
@@ -60,7 +60,7 @@ const Cart: React.FC = () => {
                     onChange={(e) => {
                       updateQuantity(index, parseInt(e.target.value) || 1);
                     }}
-                    className="w-16 p-2 border rounded bg-gray-700 text-lightText"
+                    className="w-16 p-2 border rounded-sm bg-gray-700 text-lightText"
                     disabled={!item.inStock}
                   />
                   <Button

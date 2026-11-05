@@ -45,9 +45,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <img
         src={product.images[0]} // Use only the first image here
         alt={product.name}
-        className="product-card-image mb-6 rounded"
+        className="product-card-image mb-6 rounded-sm"
       />
-      <div className="product-card-details flex flex-col flex-grow">
+      <div className="product-card-details flex flex-col grow">
         <h3 className="text-xl font-semibold mb-2 text-lightText">{product.name}</h3>
         <p className="mb-2 text-lightText">
           {product.description.length > 100
@@ -65,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             const size = product.sizes.find((s) => s.label === e.target.value);
             if (size) setSelectedSize(size);
           }}
-          className="w-full p-2 border rounded bg-gray-700 text-lightText mb-4"
+          className="w-full p-2 border rounded-sm bg-gray-700 text-lightText mb-4"
         >
           {product.sizes.map((size) => (
             <option key={size.label} value={size.label}>
@@ -77,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {buttonLabel}
         </Button>
         <Link to={`/products/${product.slug}`}>
-          <button className="w-full px-6 py-3 rounded-lg transition-transform duration-200 focus:outline-none flex items-center justify-center bg-purple-500 text-white hover:bg-purple-700 hover:scale-105 my-2">
+          <button className="w-full px-6 py-3 rounded-lg transition-transform duration-200 focus:outline-hidden flex items-center justify-center bg-purple-500 text-white hover:bg-purple-700 hover:scale-105 my-2">
             View Details
           </button>
         </Link>

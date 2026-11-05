@@ -73,13 +73,13 @@ const Checkout: React.FC = () => {
             {cartItems.map((item) => (
               <li
                 key={`${item.id}-${item.size.label}`}
-                className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded space-y-4 sm:space-y-0"
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded-sm space-y-4 sm:space-y-0"
               >
                 <div className="flex items-center space-x-6">
                   <img
                     src={item.images[0]}
                     alt={item.name}
-                    className="w-24 h-24 object-contain rounded"
+                    className="w-24 h-24 object-contain rounded-sm"
                   />
                   <div className="flex flex-col space-y-2">
                     <h3 className="text-xl font-semibold text-lightText">{item.name}</h3>
@@ -127,7 +127,7 @@ const Checkout: React.FC = () => {
             </div>
           </div>
           {showConfirmModal && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
               <div className="bg-gray-800 p-6 rounded-lg w-11/12 md:w-1/3">
                 <h3 className="text-xl font-semibold mb-4 text-lightText">Confirm Venmo Payment</h3>
                 <p className="text-lightText mb-6">

@@ -93,7 +93,7 @@ const ProductDetails: React.FC<{ product: Product }> = ({ product }) => {
                 onClick={() => {
                   handleImageChange("prev");
                 }}
-                className="p-2 bg-gray-700 text-white rounded hover:bg-gray-900"
+                className="p-2 bg-gray-700 text-white rounded-sm hover:bg-gray-900"
               >
                 Previous
               </button>
@@ -101,7 +101,7 @@ const ProductDetails: React.FC<{ product: Product }> = ({ product }) => {
                 onClick={() => {
                   handleImageChange("next");
                 }}
-                className="p-2 bg-gray-700 text-white rounded hover:bg-gray-900"
+                className="p-2 bg-gray-700 text-white rounded-sm hover:bg-gray-900"
               >
                 Next
               </button>
