@@ -1,25 +1,17 @@
 // src/context/ToastContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, type ReactNode } from "react";
+import { ToastContext } from "./toast";
 
 interface Toast {
   id: string;
   message: string;
 }
 
-interface ToastContextType {
-  showToast: (message: string) => void;
-}
-
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
-
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const showToast = (message: string) => {
-    const id = uuidv4(); // Generate a unique ID for each toast
+    const id = crypto.randomUUID(); // Generate a unique ID for each toast
     setToasts((prev) => [...prev, { id, message }]);
 
     // Automatically remove the toast after 3 seconds
@@ -43,12 +35,4 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
       </div>
     </ToastContext.Provider>
   );
-};
-
-export const useToast = (): ToastContextType => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
-  }
-  return context;
 };
