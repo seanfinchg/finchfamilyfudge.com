@@ -1,71 +1,88 @@
-/* src/index.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* src/index.css: the single Tailwind entry. Theme tokens, global base styles and the fade-in
+   animation live here; everything else is utility classes in the components. */
+@import "tailwindcss";
 
-/* Root Styles */
-:root {
-  /* Typography */
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@theme {
+  --font-sans: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-  /* Color Scheme */
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87); /* Light text color */
-  background-color: #1a1a1a; /* Dark background */
+  --color-finchGold: #d4af37;
+  --color-finchGoldHover: #f59e0b;
+  --color-darkBg: #1a1a1a;
+  --color-lightText: #f5f5f5;
 
-  /* Rendering Enhancements */
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  --animate-fadeIn: fadeIn 0.5s ease-in-out;
 
-/* Link Styles */
-a {
-  font-weight: 500;
-  color: #d4af37; /* Finch Gold */
-  text-decoration: inherit;
-}
-a:hover {
-  color: #f59e0b; /* Darker Gold on Hover */
-}
-
-/* Body Styles */
-body {
-  @apply bg-darkBg text-lightText w-full min-h-screen flex flex-col;
-  margin: 0;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-}
-
-/* Heading Styles */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #f5f5f5; /* Very Light Text for Headings */
-}
-
-/* Remove Generic Button Styles to Prevent Conflicts */
-button {
-  /* Removed generic button styles to allow Tailwind utility classes to take precedence */
-}
-
-/* Fade-in Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-in-out;
+@layer base {
+  /* Tailwind v3 defaults kept so the site looks the same after the v4 upgrade. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :root {
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: dark;
+    color: rgb(255 255 255 / 0.87);
+    background-color: var(--color-darkBg);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--color-darkBg);
+    color: var(--color-lightText);
+  }
+
+  a {
+    font-weight: 500;
+    color: var(--color-finchGold);
+    text-decoration: inherit;
+  }
+
+  a:hover {
+    color: var(--color-finchGoldHover);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-lightText);
+  }
 }
