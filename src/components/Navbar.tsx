@@ -1,7 +1,7 @@
 // src/components/Navbar.tsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { Link } from "react-router";
+import { useCart } from "../context/cart";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
@@ -41,15 +41,8 @@ const Navbar: React.FC = () => {
       </div>
       {/* Mobile Menu Button */}
       <div className="md:hidden flex items-center">
-        <button
-          onClick={toggleMobileMenu}
-          className="text-lightText focus:outline-none"
-        >
-          {isMobileMenuOpen ? (
-            <FaTimes className="h-6 w-6" />
-          ) : (
-            <FaBars className="h-6 w-6" />
-          )}
+        <button onClick={toggleMobileMenu} className="text-lightText focus:outline-hidden">
+          {isMobileMenuOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
         </button>
       </div>
       {/* Mobile Menu */}
@@ -58,28 +51,36 @@ const Navbar: React.FC = () => {
           <Link
             to="/"
             className="block px-4 py-2 text-lightText hover:bg-gray-700"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             Home
           </Link>
           <Link
             to="/products"
             className="block px-4 py-2 text-lightText hover:bg-gray-700"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             Products
           </Link>
           <Link
             to="/about"
             className="block px-4 py-2 text-lightText hover:bg-gray-700"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             About
           </Link>
           <Link
             to="/cart"
             className="block px-4 py-2 text-lightText hover:bg-gray-700 flex justify-between items-center"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+            }}
           >
             Cart
             {itemCount > 0 && (
